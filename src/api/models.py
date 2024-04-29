@@ -7,11 +7,11 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
-    nickname = db.column(db.String(40),unique=False, nullable=False)
-    name = db.column(db.String(40),unique=False, nullable=False)
-    lastname = db.column(db.String(40),unique=False, nullable=False)
-    rol = db.column(db.String(40),unique=False, nullable=False)
-    calendar = db.column(db.DateTime,unique=False, nullable=True)
+    nickname = db.Column(db.String(40),unique=False, nullable=False)
+    name = db.Column(db.String(40),unique=False, nullable=False)
+    lastname = db.Column(db.String(40),unique=False, nullable=False)
+    rol = db.Column(db.String(40),unique=False, nullable=False)
+    calendar = db.Column(db.DateTime,unique=False, nullable=True)
     def __repr__(self):
         return f'<User {self.email}>'
 
@@ -26,18 +26,18 @@ class User(db.Model):
             "calendar":self.calendar
         }
     
-    class Coach(db.Model):
-        __table_name__='coach'
-        id = db.Column(db.Integer, primary_key=True)
-        email = db.Column(db.String(120), unique=True, nullable=False)
-        password = db.Column(db.String(80), unique=False, nullable=False)
-        nickname = db.column(db.String(40),unique=False, nullable=False)
-        name = db.column(db.String(40),unique=False, nullable=False)
-        lastname = db.column(db.String(40),unique=False, nullable=False)
-        description = db.Column(db.String(180), unique=False, nullable=False)
-        image = db.Column(db.String(180), unique=False, nullable=True)
-        speciality = db.Column(db.String(80), unique=False, nullable=False)
-        calendar = db.column(db.DateTime,unique=False, nullable=True)
+class Coach(db.Model):
+    __table_name__='coach'
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(80), unique=False, nullable=False)
+    nickname = db.Column(db.String(40),unique=False, nullable=False)
+    name = db.Column(db.String(40),unique=False, nullable=False)
+    lastname = db.Column(db.String(40),unique=False, nullable=False)
+    description = db.Column(db.String(180), unique=False, nullable=False)
+    image = db.Column(db.String(180), unique=False, nullable=True)
+    speciality = db.Column(db.String(80), unique=False, nullable=False)
+    calendar = db.Column(db.DateTime,unique=False, nullable=True)
 
     def __repr__(self):
         return f'<Coach {self.email}>'
