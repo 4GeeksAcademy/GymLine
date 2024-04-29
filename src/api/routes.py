@@ -82,3 +82,45 @@ def login():
     
     if not user and not coach:
         return jsonify("Incorrect credentials"), 401
+    
+@api.route('/member', methods=['GET'])
+@jwt_required()
+def proct_member():
+    new_user = get_jwt_identity()
+    user = User.query.filter_by(id=new_user).first()
+    if not user:
+        return jsonify(success=False, message='Non-existent user'), 404
+    answer = {
+        "logged_in_as": new_user,
+        "user": user.serialize()
+    }
+    return jsonify(success=True, response=answer), 200
+
+@api.route('/coach', methods=['GET'])
+@jwt_required()
+def proct_coach():
+    new_coach = get_jwt_identity()
+    coach = Coach.query.filter_by(id=new_coach).first()
+    if not coach:
+        return jsonify(success=False, message='Non-existent coach'), 404
+    answer = {
+        "logged_in_as": new_coach,
+        "user": coach.serialize()
+    }
+    return jsonify(success=True, response=answer), 200
+
+@api.route('/users', methods = ['GET'])
+def handle_user():
+    response_body = {}
+    users = User.query.all()
+    response_body['results'] = [row.serialize() for row in users]
+    response_body['message'] = 'Method GET Users'
+    return jsonify (response_body),200
+
+@api.route('/coaches', methods = ['GET'])
+def handle_coach():
+    response_body = {}
+    coaches = Coach.query.all()
+    response_body['results'] = [row.serialize() for row in coaches]
+    response_body['message'] = 'Method GET Coaches'
+    return jsonify (response_body),200
