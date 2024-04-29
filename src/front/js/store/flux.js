@@ -7,8 +7,9 @@ const getState = ({ getStore, getActions, setStore }) => {
             logged: null
 		},
 		actions: {
-			signup: async (dataEmail, dataPassword) => {
+			signup: async (dataEmail, dataPassword, dataName, dataLastname, dataNickname) => {
                 try {
+                    console.log(dataName, dataLastname, dataNickname, dataEmail, dataPassword)
                     const response = await fetch(process.env.BACKEND_URL+"/api/signup", {
                         method: 'POST',
                         headers: {
@@ -17,6 +18,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                         body: JSON.stringify({
                             "email": dataEmail,
                             "password": dataPassword,
+                            "nickname": dataNickname,
+                            "name": dataName,
+                            "lastname": dataLastname,
+                            "rol": "member"
                         })
                     });
                     console.log(response);
