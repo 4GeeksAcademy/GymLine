@@ -63,9 +63,26 @@ const getState = ({ getStore, getActions, setStore }) => {
                             token: data.token,
                             logged: true
                         });
+
                         sessionStorage.setItem("token", data.token);
                         sessionStorage.setItem("userID", data.user.id);
-                        window.location = '/private';
+
+                        // Decodificar el token JWT para obtener el rol del usuario
+                        const token = data.token;
+                        console.log("Token ",token)
+                        const decodedToken = jwtDecode(token);
+                        console.log("Token Decodificado ",decodedToken);
+                        const userRole = decodedToken.sub.rol;
+                        console.log("Rol", userRole)
+                        // Redirigir basado en el rol del usuario
+                        const redirectMap = {
+                            'admin': '/admin',
+                            'member': '/member',
+                            'coach': '/coach',
+                        };
+                        const defaultRoute = '/guest'; // Ruta predeterminada si el rol no coincide
+                        window.location = redirectMap[userRole] || defaultRoute;
+            
                         return true;
                     } else {
                         console.error("An error occurred during user login");
