@@ -63,7 +63,11 @@ def login():
     password = rqt_body["password"]
     user = User.query.filter_by(email=email, password=password).first()
     if user:
-        new_token = create_access_token(identity=user.id)
+        token_data = {
+            "id": user.id,
+            "rol":user.rol
+        }
+        new_token = create_access_token(identity=token_data)
         answer = {
         "msg": "logged",
         "user": user.serialize(),
@@ -72,7 +76,11 @@ def login():
         return jsonify(answer), 200
     coach = Coach.query.filter_by(email=email, password=password).first()
     if coach:
-        new_token = create_access_token(identity=coach.id)
+        token_data = {
+            "id": coach.id,
+            "rol":"coach"
+        }
+        new_token = create_access_token(identity=token_data)
         answer = {
         "msg": "logged",
         "user": coach.serialize(),
