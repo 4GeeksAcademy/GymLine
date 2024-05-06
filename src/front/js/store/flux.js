@@ -1,17 +1,17 @@
 import { jwtDecode } from "jwt-decode"
 const getState = ({ getStore, getActions, setStore }) => {
-	return {
-		store: {
-			message: null,
-			token: null,
+    return {
+        store: {
+            message: null,
+            token: null,
             user: null,
             logged: null
-		},
-		actions: {
-			signup: async (dataEmail, dataPassword, dataName, dataLastname, dataNickname) => {
+        },
+        actions: {
+            signup: async (dataEmail, dataPassword, dataName, dataLastname, dataNickname) => {
                 try {
                     console.log(dataName, dataLastname, dataNickname, dataEmail, dataPassword)
-                    const response = await fetch(process.env.BACKEND_URL+"/api/signup", {
+                    const response = await fetch(process.env.BACKEND_URL + "/api/signup", {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return false;
                 }
             },
-			login: async (dataEmail, dataPassword) => {
+            login: async (dataEmail, dataPassword) => {
                 try {
                     const response = await fetch(process.env.BACKEND_URL + "/api/login", {
                         method: 'POST',
@@ -64,15 +64,13 @@ const getState = ({ getStore, getActions, setStore }) => {
                             token: data.token,
                             logged: true
                         });
-
                         sessionStorage.setItem("token", data.token);
                         sessionStorage.setItem("userID", data.user.id);
-
                         // Decodificar el token JWT para obtener el rol del usuario
                         const token = data.token;
-                        console.log("Token ",token)
+                        console.log("Token ", token)
                         const decodedToken = jwtDecode(token);
-                        console.log("Token Decodificado ",decodedToken);
+                        console.log("Token Decodificado ", decodedToken);
                         const userRole = decodedToken.sub.rol;
                         console.log("Rol", userRole)
                         // Redirigir basado en el rol del usuario
@@ -83,7 +81,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                         };
                         const defaultRoute = '/guest'; // Ruta predeterminada si el rol no coincide
                         window.location = redirectMap[userRole] || defaultRoute;
-            
                         return true;
                     } else {
                         console.error("An error occurred during user login");
@@ -94,15 +91,14 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return false;
                 }
             },
-			verifyAuthToken: async () => {
+            verifyAuthToken: async () => {
                 const token = sessionStorage.getItem("token");
-				console.log(token);
+                console.log(token);
                 if (!token) {
                     setStore({ logged: false });
                     window.location = '/login';
                     return false;
                 }
-
                 try {
                     let response = await fetch(process.env.BACKEND_URL + "/api/protected", {
                         method: 'GET',
@@ -114,7 +110,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                             "Access-Control-Allow-Methods": "*"
                         }
                     });
-
                     if (response.ok) {
                         const userData = await response.json();
                         setStore({
@@ -125,17 +120,16 @@ const getState = ({ getStore, getActions, setStore }) => {
                     } else {
                         sessionStorage.removeItem("token");
                         setStore({ logged: false });
-						window.location = '/login';
+                        window.location = '/login';
                     }
                 } catch (error) {
                     console.error("Token validation failed", error);
                     sessionStorage.removeItem("token");
                     setStore({ logged: false });
-					window.location = '/login';
+                    window.location = '/login';
                 }
             },
-		
-			logout: () => {
+            logout: () => {
                 setStore({
                     user: null,
                     token: null,
@@ -144,9 +138,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 sessionStorage.removeItem("token");
                 sessionStorage.removeItem("userID");
             }
-
-		}
-	};
+        }
+    };
 };
-
 export default getState;

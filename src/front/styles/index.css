@@ -1,3 +1,33 @@
-/* 
-    General Styles used on every website (Don't Repeat Yourself)
-*/
+.footer.mt-auto.py-3.text-center{
+    position:fixed;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    background-color: #740C0C;
+    border:solid;
+    border-color: black;
+}
+.link-container {
+    display: inline-block;
+    margin-right: 20px;
+    margin-left:0;
+    transition: margin-right 0.3s ease, margin-left 0.3s ease;
+}
+.link-container:hover {
+    margin-right: 30px;
+    margin-left: 10px;
+}
+.link-container:hover ~ .link-container {
+    margin-right: 10px;
+}
+.link-container a {
+    color: #FDD700;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+.link-container:hover a {
+    color: white;
+    transform: scale(1.1);
+}

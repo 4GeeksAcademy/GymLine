@@ -28,10 +28,10 @@ export const Navbar = () => {
 				</a>
 			</div>
 			<div className="d-flex align-items-center">
-				<button className="btn btn-secondary me-2">SHOP</button>
-				<button className="btn btn-secondary me-2">GYM</button>
+				<button className="btn btn-secondary me-4">SHOP</button>
+				<button className="btn btn-secondary me-4 ms-4"/*  style={{marginRight: "10%", marginLeft: "2%"}}  */>GYM</button>
 				<button
-					className="btn btn-secondary me-2"
+					className="btn btn-secondary me-4 ms-4"
 					type="button"
 					id="dropdownMenuButton1"
 					data-bs-toggle="dropdown"
@@ -75,7 +75,7 @@ export const Navbar = () => {
 					</Link>
 				{/* <a class="dropdown-item" href="#">Forgot password?</a> */}
 				</div>
-				<button className="btn btn-secondary">
+				<button className="btn btn-secondary me-5">
 					<i className="fa-solid fa-cart-shopping"></i>
 				</button>
 			</div>
