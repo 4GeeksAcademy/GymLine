@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode"
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
