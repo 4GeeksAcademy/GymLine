@@ -8,22 +8,15 @@ from flask_cors import CORS
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
-
 api = Blueprint('api', __name__)
-
 # Allow CORS requests to this API
 CORS(api)
-
-
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
-
     response_body = {
         "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
     }
-
     return jsonify(response_body), 200
-
 @api.route("/signup", methods=["POST"])
 def handle_register():
     rqt_body = request.get_json(force=True)
@@ -55,7 +48,6 @@ def handle_register():
             "coach": coach.serialize()
         }
         return jsonify(answer), 200
-    
 @api.route('/login', methods=['POST'])
 def login():
     rqt_body = request.get_json(force=True)
@@ -87,10 +79,8 @@ def login():
         "token": new_token
     }
         return jsonify(answer), 200
-    
     if not user and not coach:
         return jsonify("Incorrect credentials"), 401
-    
 @api.route('/member', methods=['GET'])
 @jwt_required()
 def proct_member():
@@ -103,7 +93,6 @@ def proct_member():
         "user": user.serialize()
     }
     return jsonify(success=True, response=answer), 200
-
 @api.route('/coach', methods=['GET'])
 @jwt_required()
 def proct_coach():
@@ -116,7 +105,6 @@ def proct_coach():
         "user": coach.serialize()
     }
     return jsonify(success=True, response=answer), 200
-
 @api.route('/users', methods = ['GET'])
 def handle_user():
     response_body = {}
@@ -124,7 +112,6 @@ def handle_user():
     response_body['results'] = [row.serialize() for row in users]
     response_body['message'] = 'Method GET Users'
     return jsonify (response_body),200
-
 @api.route('/coaches', methods = ['GET'])
 def handle_coach():
     response_body = {}
@@ -132,3 +119,17 @@ def handle_coach():
     response_body['results'] = [row.serialize() for row in coaches]
     response_body['message'] = 'Method GET Coaches'
     return jsonify (response_body),200
+@api.route('/protected', methods=['GET'])
+@jwt_required()
+def protected():
+    new_user = get_jwt_identity()
+    user_id = new_user['id']
+    print (new_user)
+    user = User.query.filter_by(id=user_id).first()
+    if not user:
+        return jsonify(success=False, message='Non-existent user'), 404
+    answer = {
+        "logged_in_as": new_user,
+        "user": user.serialize()
+    }
+    return jsonify(success=True, response=answer), 200

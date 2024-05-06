@@ -6,7 +6,7 @@ const Login = () => {
     const { store, actions } = useContext(Context);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [errorMessage,setErrorMessage]=useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -42,17 +42,17 @@ const Login = () => {
                     />
                 </div>
             </div>
-            <button  className="btn btn-primary" type="submit" onClick={handleLogin}>
+            <button className="btn btn-primary" type="submit" onClick={handleLogin}>
                 Login
             </button>
             <Link to="/signup">
-                    <button className="btn btn-info mx-5">Go to Register Page</button>
+                <button className="btn btn-info mx-5">Go to Register Page</button>
             </Link>
             {errorMessage && (
-            <div className="alert alert-danger mt-3" role="alert">
-                {errorMessage}
-            </div>
-        )}
+                <div className="alert alert-danger mt-3" role="alert">
+                    {errorMessage}
+                </div>
+            )}
         </form>
     );
 };
