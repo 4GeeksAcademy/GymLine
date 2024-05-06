@@ -2,9 +2,17 @@ import React, { Component } from "react";
 
 export const Footer = () => (
 	<footer className="footer mt-auto py-3 text-center">
-		<p>
-			Made with <i className="fa fa-heart text-danger" /> by{" "}
-			<a href="http://www.4geeksacademy.com">4Geeks Academy</a>
-		</p>
+		<div class="link-container">
+			<a href="http://www.4geeksacademy.com">Conócenos</a>
+		</div>
+		<div class="link-container">
+			<a href="http://www.4geeksacademy.com">Nuestros links</a>
+		</div>
+		<div class="link-container">
+			<a href="http://www.4geeksacademy.com">Políticas y condiciones de uso</a>
+		</div>
+		<div class="link-container">
+			<a href="http://www.4geeksacademy.com">Copyright</a>
+		</div>
 	</footer>
 );

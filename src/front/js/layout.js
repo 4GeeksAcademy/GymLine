@@ -9,6 +9,10 @@ import  Signup  from "./pages/signup";
 import  Login  from "./pages/login";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+import Admin from "./pages/admin";
+import Member from "./pages/member";
+import Coach from "./pages/coach";
+import Guest from "./pages/guest";
 
 //create your first component
 const Layout = () => {
