@@ -13,11 +13,7 @@ import Admin from "./pages/admin";
 import Member from "./pages/member";
 import Coach from "./pages/coach";
 import Guest from "./pages/guest";
-
-import Admin from "./pages/admin";
-import Member from "./pages/member";
-import Coach from "./pages/coach";
-import Guest from "./pages/guest";
+import Adminview from "./pages/adminview";
 
 //create your first component
 const Layout = () => {
@@ -36,6 +32,7 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Login />} path="/login" />
+                        <Route element={<Adminview />} path="/adminview" />
                         <Route element={<Admin />} path="/admin" />
                         <Route element={<Member />} path="/member" />
                         <Route element={<Coach />} path="/coach" />

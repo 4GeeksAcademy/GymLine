@@ -75,7 +75,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                         console.log("Rol", userRole)
                         // Redirigir basado en el rol del usuario
                         const redirectMap = {
-                            'admin': '/admin',
+                            'admin': '/adminview',
                             'member': '/member',
                             'coach': '/coach',
                         };

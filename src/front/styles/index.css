@@ -8,8 +8,6 @@
     border:solid;
     border-color: black;
 }
-
-
 .link-container {
     display: inline-block;
     margin-right: 20px;
@@ -32,4 +30,20 @@
 .link-container:hover a {
     color: white;
     transform: scale(1.1);
+}
+.button-container-adminview {
+    display: flex;
+    justify-content: center; /* Centra los botones horizontalmente */
+    gap: 5vw;
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow-x: auto; /* Permitir el desplazamiento horizontal si los botones no caben en una sola fila */
+
+}
+.button-adminview {
+    flex: 1;
+    max-width: 20vw;
+    min-width: 200px; /* Ancho mínimo para los botones */
+    height: 50vh;
+    margin-top: 10vh;
 }
