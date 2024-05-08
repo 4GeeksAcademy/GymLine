@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 export const Footer = () => (
+	
 	<footer className="footer mt-auto py-3 text-center">
 		<div class="link-container">
 			<a href="http://www.4geeksacademy.com">Conócenos</a>
@@ -16,3 +17,10 @@ export const Footer = () => (
 		</div>
 	</footer>
 );
+
+
+
+
+
+
+

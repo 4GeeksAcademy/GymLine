@@ -1,7 +1,3 @@
-/* 
-    General Styles used on every website (Don't Repeat Yourself)
-*/
-
 .footer.mt-auto.py-3.text-center{
     position:fixed;
     left: 0;
@@ -20,23 +16,19 @@
     margin-left:0;
     transition: margin-right 0.3s ease, margin-left 0.3s ease;
 }
-
 .link-container:hover {
     margin-right: 30px;
     margin-left: 10px;
 }
-
 .link-container:hover ~ .link-container {
     margin-right: 10px;
 }
-
 .link-container a {
-    color: #fdd700;
+    color: #FDD700;
     text-decoration: none;
     display: inline-block;
     transition: transform 0.3s ease;
 }
-
 .link-container:hover a {
     color: white;
     transform: scale(1.1);
