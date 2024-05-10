@@ -5,9 +5,34 @@ const getState = ({ getStore, getActions, setStore }) => {
             message: null,
             token: null,
             user: null,
-            logged: null
+            logged: null,
+            users: null,
         },
         actions: {
+            getAllUsers: async () => {
+                try {
+                    const response = await fetch(process.env.BACKEND_URL + "/api/users", {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    if (response.ok) {
+                        const userData = await response.json();
+                        setStore({
+                            users: userData.results,
+                            message: userData.message
+                        });
+                    } else {
+                        console.error("Error al obtener usuarios:", response.statusText);
+                        setStore({ users: [], message: null });
+                    }
+                } catch (error) {
+                    console.error("Error al obtener usuarios:", error);
+                    setStore({ users: [], message: null });
+                }
+            },
             signup: async (dataEmail, dataPassword, dataName, dataLastname, dataNickname) => {
                 try {
                     console.log(dataName, dataLastname, dataNickname, dataEmail, dataPassword)
@@ -96,7 +121,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 console.log(token);
                 if (!token) {
                     setStore({ logged: false });
-                    window.location = '/login';
+                    //window.location = '/login';
                     return false;
                 }
                 try {

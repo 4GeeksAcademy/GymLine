@@ -3,17 +3,18 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
 const Adminview = () => {
+    console.log("hasta los cullons")
     const { store, actions } = useContext(Context);
 
     useEffect(() => {
+        console.log("hola adminview")
         if (!store.logged) {
             actions.verifyAuthToken();
         }
     }, [store.logged]);
 
-
+    console.log("estoy en adminview")
     return (
-        
         <div className="text-center">
             {store.logged && store.user && store.user.rol === "admin" ? (
                 <div>
@@ -35,7 +36,7 @@ const Adminview = () => {
                     <Link to="/shopmanagment">
                         <button className="button-adminview">Tienda</button>
                     </Link>
-                    <Link to="/userssmanagment">
+                    <Link to="/usersmanagment">
                         <button className="button-adminview">Usuarios</button>
                     </Link>
                     <Link to="/gymmanagment">
