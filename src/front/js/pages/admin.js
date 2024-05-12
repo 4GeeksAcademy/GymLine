@@ -8,7 +8,7 @@ const Admin = () => {
         actions.getAllUsers()
     }, []);
 
-    console.log("This Data", store.users)
+    console.log("This Data", store.dataClub)
 
     return (
         <div className="text-center">
