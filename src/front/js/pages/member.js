@@ -3,30 +3,13 @@ import { Context } from "../store/appContext";
 
 const Member = () => {
     const { store, actions } = useContext(Context);
-
-    useEffect(() => {
-        if (!store.logged) {
-            actions.verifyAuthToken();
-        }
-    }, [store.logged]);
-
+    console.log("Prueba", store.dataProduct ? store.dataProduct[0].type : null);
     return (
         <div className="text-center">
-            {store.logged ? (
-                <div>
-                    <h1>Welcome Member!</h1>
-                </div>
-            ) : store.logged == false ? (
-                <div>
-                    <h1>Unauthorized</h1>
-                    <p>You only could access with the correct credentials.</p>
-                </div>
-            ) : (
-                <div>
-                    <h1>Authenticating</h1>
-                    <p>Checking..................</p>
-                </div>
-            )}
+            <div>
+                <h1>Welcome Member!</h1>
+            </div>
+
         </div>
     );
 };

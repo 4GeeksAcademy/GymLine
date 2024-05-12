@@ -5,24 +5,91 @@ const getState = ({ getStore, getActions, setStore }) => {
             message: null,
             token: null,
             user: null,
-            logged: null
+            logged: null,
+            products: null,
+            dataProduct: null,
+            users: null,
+            clubs: null,
+            dataClub: null
         },
         actions: {
-            signup: async (dataEmail, dataPassword, dataName, dataLastname, dataNickname) => {
+            getProducts: async () => {
                 try {
-                    console.log(dataName, dataLastname, dataNickname, dataEmail, dataPassword)
-                    const response = await fetch(process.env.BACKEND_URL + "/api/signup", {
+                    const response = await fetch(process.env.BACKEND_URL + "/api/products", {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    });
+                    console.log(response);
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log("The data", data);
+                        setStore({
+                            products: data.results
+                        });
+                        return true;
+                    } else {
+                        const errorData = await response.json();
+                        if (errorData.message) {
+                            console.error(`Get Products: ${errorData.message}`);
+                        } else {
+                            console.error("An error occurred during Get Products");
+                        }
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("An error occurred getting products", error);
+                    return false;
+                }
+            },
+
+            getDataProduct: async (id) => {
+                try {
+                    const response = await fetch(process.env.BACKEND_URL + "/api/product/" + id, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    });
+                    console.log(response);
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log("The data", data);
+                        setStore({
+                            dataProduct: data.results
+                        });
+                        return true;
+                    } else {
+                        const errorData = await response.json();
+                        if (errorData.message) {
+                            console.error(`Get Product: ${errorData.message}`);
+                        } else {
+                            console.error("An error occurred during Get Product");
+                        }
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("An error occurred getting product", error);
+                    return false;
+                }
+            },
+
+            createProduct: async (dataProduct, dataPrice, dataImage_product, dataDescription, dataType, dataStock) => {
+                try {
+                    console.log(dataProduct, dataPrice, dataImage_product, dataDescription, dataType, dataStock)
+                    const response = await fetch(process.env.BACKEND_URL + "/api/product", {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            "email": dataEmail,
-                            "password": dataPassword,
-                            "nickname": dataNickname,
-                            "name": dataName,
-                            "lastname": dataLastname,
-                            "rol": "member"
+                            "product": dataProduct,
+                            "price": dataPrice,
+                            "image_product": dataImage_product,
+                            "description": dataDescription,
+                            "type": dataType,
+                            "stock": dataStock
                         })
                     });
                     console.log(response);
@@ -33,17 +100,368 @@ const getState = ({ getStore, getActions, setStore }) => {
                     } else {
                         const errorData = await response.json();
                         if (errorData.message) {
-                            console.error(`Signup error: ${errorData.message}`);
+                            console.error(`Product Creation Error: ${errorData.message}`);
                         } else {
-                            console.error("An error occurred during user creation");
+                            console.error("An error occurred during product creation");
                         }
                         return false;
                     }
                 } catch (error) {
-                    console.error("An error occurred during user creation", error);
+                    console.error("An error occurred during product creation", error);
                     return false;
                 }
             },
+
+            modifyProduct: async (id, dataProduct = null, dataPrice = null, dataImage_product = null, dataDescription = null, dataType = null, dataStock = null) => {
+                try {
+                    console.log(dataProduct, dataPrice, dataImage_product, dataDescription, dataType, dataStock);
+
+                    const requestBody = {};
+
+                    if (dataProduct !== null) requestBody.product = dataProduct;
+                    if (dataPrice !== null) requestBody.price = dataPrice;
+                    if (dataImage_product !== null) requestBody.image_product = dataImage_product;
+                    if (dataDescription !== null) requestBody.description = dataDescription;
+                    if (dataType !== null) requestBody.type = dataType;
+                    if (dataStock !== null) requestBody.stock = dataStock;
+
+                    const response = await fetch(process.env.BACKEND_URL + `/api/product/${id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(requestBody)
+                    });
+
+                    console.log(response);
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
+                        return true;
+                    } else {
+                        const errorData = await response.json();
+                        if (errorData.message) {
+                            console.error(`Product Modification Error: ${errorData.message}`);
+                        } else {
+                            console.error("An error occurred during product modification");
+                        }
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("An error occurred during product modification", error);
+                    return false;
+                }
+            },
+
+            deleteProduct: async (id) => {
+                try {
+                    const response = await fetch(process.env.BACKEND_URL + `/api/product/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    console.log(response);
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
+                        return true;
+                    } else {
+                        const errorData = await response.json();
+                        if (errorData.message) {
+                            console.error(`Product Deletion Error: ${errorData.message}`);
+                        } else {
+                            console.error("An error occurred during product deletion");
+                        }
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("An error occurred during product deletion", error);
+                    return false;
+                }
+            },
+
+            getClubs: async () => {
+                try {
+                    const response = await fetch(process.env.BACKEND_URL + "/api/gyms", {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    });
+                    console.log(response);
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log("The data", data);
+                        setStore({
+                            clubs: data.results
+                        });
+                        return true;
+                    } else {
+                        const errorData = await response.json();
+                        if (errorData.message) {
+                            console.error(`Get Clubs: ${errorData.message}`);
+                        } else {
+                            console.error("An error occurred during Get Clubs");
+                        }
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("An error occurred getting clubs", error);
+                    return false;
+                }
+            },
+
+            getDataClub: async (id) => {
+                try {
+                    const response = await fetch(process.env.BACKEND_URL + "/api/gym/" + id, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    });
+                    console.log(response);
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log("The data", data);
+                        setStore({
+                            dataClub: data.results
+                        });
+                        return true;
+                    } else {
+                        const errorData = await response.json();
+                        if (errorData.message) {
+                            console.error(`Get Club: ${errorData.message}`);
+                        } else {
+                            console.error("An error occurred during Get Gym");
+                        }
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("An error occurred getting gym", error);
+                    return false;
+                }
+            },
+
+            createClub: async (dataCity, dataGym, dataAddress, dataPhone, dataEmail,dataUrl) => {
+                try {
+                    const response = await fetch(process.env.BACKEND_URL + "/api/gym", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            "city": dataCity,
+                            "gym": dataGym,
+                            "address": dataAddress,
+                            "phone": dataPhone,
+                            "email": dataEmail,
+                            "url": dataUrl
+                        })
+                    });
+                    console.log(response);
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
+                        return true;
+                    } else {
+                        const errorData = await response.json();
+                        if (errorData.message) {
+                            console.error(`Gym Creation Error: ${errorData.message}`);
+                        } else {
+                            console.error("An error occurred during Gym creation");
+                        }
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("An error occurred during Gym creation", error);
+                    return false;
+                }
+            },
+
+            modifyClub: async (id, dataCity = null, dataGym = null, dataAddress = null, dataPhone = null, dataEmail = null, dataUrl = "URL") => {
+                try {
+
+                    const requestBody = {};
+
+                    if (dataCity !== null) requestBody.city = dataCity;
+                    if (dataGym !== null) requestBody.gym = dataGym;
+                    if (dataAddress !== null) requestBody.address = dataAddress;
+                    if (dataPhone !== null) requestBody.phone = dataPhone;
+                    if (dataEmail !== null) requestBody.email = dataEmail;
+                    if (dataUrl !== null) requestBody.url = dataUrl;
+
+                    const response = await fetch(process.env.BACKEND_URL + `/api/gym/${id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(requestBody)
+                    });
+
+                    console.log(response);
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
+                        return true;
+                    } else {
+                        const errorData = await response.json();
+                        if (errorData.message) {
+                            console.error(`Club Modification Error: ${errorData.message}`);
+                        } else {
+                            console.error("An error occurred during club modification");
+                        }
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("An error occurred during club modification", error);
+                    return false;
+                }
+            },
+
+
+            deleteClub: async (id) => {
+                try {
+                    const response = await fetch(process.env.BACKEND_URL + `/api/gym/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    console.log(response);
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
+                        return true;
+                    } else {
+                        const errorData = await response.json();
+                        if (errorData.message) {
+                            console.error(`Club Deletion Error: ${errorData.message}`);
+                        } else {
+                            console.error("An error occurred during club deletion");
+                        }
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("An error occurred during club deletion", error);
+                    return false;
+                }
+            },
+
+
+            getAllUsers: async () => {
+                const token = sessionStorage.getItem("token");
+                console.log(token);
+                try {
+                    const response = await fetch(process.env.BACKEND_URL + "/api/users", {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`,
+                            "Access-Control-Allow-Origin": "*",
+                            "Access-Control-Allow-Methods": "*"  
+                        },
+                    });
+                    console.log(response);
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log("The data", data);
+                        setStore({
+                            users: data.results
+                        });
+                        return true;
+                    } else {
+                        const errorData = await response.json();
+                        if (errorData.message) {
+                            console.error(`Get Users: ${errorData.message}`);
+                        } else {
+                            console.error("An error occurred during Get Users");
+                        }
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("An error occurred getting users", error);
+                    return false;
+                }
+            },
+
+            modifyUser: async (id, email = null, password = null, nickname = null, name = null, lastname = null) => {
+                try {
+
+                    const requestBody = {};
+
+                    if (email !== null) requestBody.email = email;
+                    if (password !== null) requestBody.password = password;
+                    if (nickname !== null) requestBody.nickname = nickname;
+                    if (name !== null) requestBody.name = name;
+                    if (lastname !== null) requestBody.lastname = lastname;
+
+                    const response = await fetch(process.env.BACKEND_URL + `/api/member/${id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(requestBody)
+                    });
+
+                    console.log(response);
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
+                        return true;
+                    } else {
+                        const errorData = await response.json();
+                        if (errorData.message) {
+                            console.error(`User Modification Error: ${errorData.message}`);
+                        } else {
+                            console.error("An error occurred during user modification");
+                        }
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("An error occurred during user modification", error);
+                    return false;
+                }
+            },
+
+            deleteUser: async (id) => {
+                try {
+                    const response = await fetch(process.env.BACKEND_URL + `/api/member/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    console.log(response);
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
+                        return true;
+                    } else {
+                        const errorData = await response.json();
+                        if (errorData.message) {
+                            console.error(`User Deletion Error: ${errorData.message}`);
+                        } else {
+                            console.error("An error occurred during user deletion");
+                        }
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("An error occurred during User deletion", error);
+                    return false;
+                }
+            },
+
             login: async (dataEmail, dataPassword) => {
                 try {
                     const response = await fetch(process.env.BACKEND_URL + "/api/login", {
