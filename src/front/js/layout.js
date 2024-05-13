@@ -26,21 +26,9 @@ const Layout = () => {
 
     // Obtener el contexto para verificar el rol del usuario
     const { store, actions } = useContext(Context);
-    const [isAdmin, setIsAdmin] = useState(false);
-    useEffect(() => {
-        if (!store.logged) {
-            actions.verifyAuthToken();
-        }
-        if(store.logged && store.user && store.user.rol === "admin"){
-            setIsAdmin(true);
-        } else {
-            setIsAdmin(false);
-        }
-    }, [store.logged]);
 
-    //const isAdmin = store.logged && store.user && store.user.rol === "admin";
+    const isAdmin = store.user && store.user.rol === "admin";
     //const isAdmin = true;
-    console.log(store.logged)
     console.log(store.user)
     console.log(isAdmin)
 

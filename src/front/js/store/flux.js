@@ -35,7 +35,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             signup: async (dataEmail, dataPassword, dataName, dataLastname, dataNickname) => {
                 try {
-                    console.log(dataName, dataLastname, dataNickname, dataEmail, dataPassword)
+                    //console.log(dataName, dataLastname, dataNickname, dataEmail, dataPassword)
                     const response = await fetch(process.env.BACKEND_URL + "/api/signup", {
                         method: 'POST',
                         headers: {
@@ -50,10 +50,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                             "rol": "member"
                         })
                     });
-                    console.log(response);
+                    //console.log(response);
                     if (response.ok) {
                         const data = await response.json();
-                        console.log(data);
+                        //console.log(data);
                         return true;
                     } else {
                         const errorData = await response.json();
@@ -81,23 +81,24 @@ const getState = ({ getStore, getActions, setStore }) => {
                             "password": dataPassword,
                         })
                     });
-                    console.log(response);
+                    console.log("Este es el respone: "+response);
                     if (response.ok) {
                         const data = await response.json();
+                        
+                        sessionStorage.setItem("token", data.token);
+                        sessionStorage.setItem("userID", data.user.id);
+                        // Decodificar el token JWT para obtener el rol del usuario
+                        const token = data.token;
+                        //console.log("Token ", token)
+                        const decodedToken = jwtDecode(token);
+                        //console.log("Token Decodificado ", decodedToken);
+                        const userRole = decodedToken.sub.rol;
                         setStore({
                             user: data.user,
                             token: data.token,
                             logged: true
                         });
-                        sessionStorage.setItem("token", data.token);
-                        sessionStorage.setItem("userID", data.user.id);
-                        // Decodificar el token JWT para obtener el rol del usuario
-                        const token = data.token;
-                        console.log("Token ", token)
-                        const decodedToken = jwtDecode(token);
-                        console.log("Token Decodificado ", decodedToken);
-                        const userRole = decodedToken.sub.rol;
-                        console.log("Rol", userRole)
+                        console.log("Data", data.user)
                         // Redirigir basado en el rol del usuario
                         const redirectMap = {
                             'admin': '/adminview',
@@ -105,7 +106,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                             'coach': '/coach',
                         };
                         const defaultRoute = '/guest'; // Ruta predeterminada si el rol no coincide
-                        window.location = redirectMap[userRole] || defaultRoute;
+                        //window.location = redirectMap[userRole] || defaultRoute;
                         return true;
                     } else {
                         console.error("An error occurred during user login");
@@ -118,10 +119,10 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             verifyAuthToken: async () => {
                 const token = sessionStorage.getItem("token");
-                console.log(token);
+                //console.log(token);
                 if (!token) {
                     setStore({ logged: false });
-                    window.location = '/login';
+                    //window.location = '/login';
                     return false;
                 }
                 try {
@@ -145,13 +146,13 @@ const getState = ({ getStore, getActions, setStore }) => {
                     } else {
                         sessionStorage.removeItem("token");
                         setStore({ logged: false });
-                        window.location = '/login';
+                        //window.location = '/login';
                     }
                 } catch (error) {
                     console.error("Token validation failed", error);
                     sessionStorage.removeItem("token");
                     setStore({ logged: false });
-                    window.location = '/login';
+                   // window.location = '/login';
                 }
             },
             logout: () => {
