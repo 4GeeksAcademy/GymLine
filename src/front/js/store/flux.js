@@ -64,6 +64,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                             token: data.token,
                             logged: true
                         });
+                        
                         sessionStorage.setItem("token", data.token);
                         sessionStorage.setItem("userID", data.user.id);
                         // Decodificar el token JWT para obtener el rol del usuario
@@ -82,18 +83,22 @@ const getState = ({ getStore, getActions, setStore }) => {
                         const defaultRoute = '/guest'; // Ruta predeterminada si el rol no coincide
                         window.location = redirectMap[userRole] || defaultRoute;
                         return true;
+                        
                     } else {
                         console.error("An error occurred during user login");
                         return false;
                     }
+                    
                 } catch (error) {
                     console.error("An error occurred during user login", error);
                     return false;
                 }
+                
             },
             verifyAuthToken: async () => {
                 const token = sessionStorage.getItem("token");
                 console.log(token);
+                
                 if (!token) {
                     setStore({ logged: false });
                     window.location = '/login';
@@ -117,11 +122,15 @@ const getState = ({ getStore, getActions, setStore }) => {
                             token: token,
                             logged: true
                         });
+                       
                     } else {
                         sessionStorage.removeItem("token");
                         setStore({ logged: false });
                         window.location = '/login';
                     }
+                    
+                  
+                    
                 } catch (error) {
                     console.error("Token validation failed", error);
                     sessionStorage.removeItem("token");

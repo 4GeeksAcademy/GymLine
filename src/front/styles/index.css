@@ -27,7 +27,19 @@
     display: inline-block;
     transition: transform 0.3s ease;
 }
+
 .link-container:hover a {
     color: white;
     transform: scale(1.1);
+}
+
+body {
+    background-image: url('../img/fondo_pattern.jpg');
+    background-repeat: repeat; 
+    background-size: 200% 200%;
+    background-position: 50px 50px;
+  }
+
+.backg-header{
+    background-color: #740C0C;
 }
