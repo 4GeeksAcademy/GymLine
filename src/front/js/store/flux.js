@@ -121,7 +121,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 console.log(token);
                 if (!token) {
                     setStore({ logged: false });
-                    //window.location = '/login';
+                    window.location = '/login';
                     return false;
                 }
                 try {

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
@@ -26,33 +26,38 @@ const Layout = () => {
 
     // Obtener el contexto para verificar el rol del usuario
     const { store, actions } = useContext(Context);
+    const [isAdmin, setIsAdmin] = useState(false);
     useEffect(() => {
         if (!store.logged) {
             actions.verifyAuthToken();
-            console.log("1")
+        }
+        if(store.logged && store.user && store.user.rol === "admin"){
+            setIsAdmin(true);
+        } else {
+            setIsAdmin(false);
         }
     }, [store.logged]);
 
-    const navigate = () => {
-        return ;
-    };
-
-    const isAdmin = store.logged && store.user && store.user.rol === "admin";
+    //const isAdmin = store.logged && store.user && store.user.rol === "admin";
+    //const isAdmin = true;
     console.log(store.logged)
     console.log(store.user)
     console.log(isAdmin)
+
     return (
         <div>
+            
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
                     <Navbar />
+                    
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<Admin />} path="/admin" />
-                        <Route element={isAdmin ? <Adminview /> :  () => <Navigate to="/login" />} path={"/adminview"} />
-                        <Route element={isAdmin ? <Usersmanagment /> : () => <Navigate to="/login" />} path={"/usersmanagment"} />
+                        <Route element={isAdmin ? <Adminview /> :  <Navigate to="/login" />} path={"/adminview"} />
+                        <Route element={isAdmin ? <Usersmanagment /> : <Navigate to="/login" />} path={"/usersmanagment"} />
                         <Route element={<Member />} path="/member" />
                         <Route element={<Coach />} path="/coach" />
                         <Route element={<Guest />} path="/guest" />
