@@ -1,7 +1,27 @@
-/*
-    home.css: This website contains selectors only used in home.css
-
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
+.arrows {
+    width: 5%;
+    height: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .arrows:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .arrows:active {
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+  
+  .arrows.left {
+    left: 0;
+  }
+  
+  .arrows.right {
+    right: 0;
+  }
