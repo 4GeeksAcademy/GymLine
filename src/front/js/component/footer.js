@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
 export const Footer = () => (
-	
+
 	<footer className="footer mt-auto py-3 text-center">
-		<div class="link-container">
+		<div className="link-container">
 			<a href="http://www.4geeksacademy.com">Conócenos</a>
 		</div>
 		<div className="link-container">

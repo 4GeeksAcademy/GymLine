@@ -4,7 +4,7 @@
     bottom: 0;
     text-align: center;
     width: 100%;
-    background-color: #740C0C;
+    background-color: #740c0c;
     border:solid;
     border-color: black;
 }
@@ -42,4 +42,19 @@ body {
 
 .backg-header{
     background-color: #740C0C;
+.button-container-adminview {
+    display: flex;
+    justify-content: center; /* Centra los botones horizontalmente */
+    gap: 5vw;
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow-x: auto; /* Permitir el desplazamiento horizontal si los botones no caben en una sola fila */
+
+}
+.button-adminview {
+    flex: 1;
+    max-width: 20vw;
+    min-width: 200px; /* Ancho mínimo para los botones */
+    height: 50vh;
+    margin-top: 10vh;
 }

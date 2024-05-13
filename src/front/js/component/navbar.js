@@ -1,21 +1,33 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/login.css";
 
 export const Navbar = () => {
 	const { store, actions } = useContext(Context);
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [errorMessage, setErrorMessage] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+	const navigate = useNavigate();
+    const [errorMessage,setErrorMessage]=useState("");
 
-	const handleLogin = async (e) => {
-		e.preventDefault();
-		const loginSuccess = await actions.login(email, password);
-		if (!loginSuccess) {
-			setErrorMessage("Login failed. Please check your credentials.");
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        const loginSuccess = await actions.login(email, password);
+        if (!loginSuccess) {
+            setErrorMessage("Login failed. Please check your credentials.");
+        }else{
+			console.log(store.user)
+			if(store.user.rol == "member"){
+				<Navigate to="/member" />
+			} else if(store.user.rol == "coach"){
+				<Navigate to="/coach" />
+			} else {
+				console.log("asdfasdfasdfasdf");
+				navigate("/adminview")
+			}
+			
 		}
-	};
+    };
 
 	return (
 		<header className="d-flex justify-content-between align-items-center py-3 backg-header">

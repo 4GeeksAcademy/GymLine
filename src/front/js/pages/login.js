@@ -11,6 +11,7 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         const loginSuccess = await actions.login(email, password);
+        console.log(loginSuccess)
         if (!loginSuccess) {
             setErrorMessage("Login failed. Please check your credentials.");
         }

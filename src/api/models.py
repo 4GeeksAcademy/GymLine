@@ -54,3 +54,54 @@ class Coach(db.Model):
             "speciality": self.speciality,
             "calendar":self.calendar
         }
+    
+class Shop (db.Model):
+        __table_name__='shop'
+        id = db.Column(db.Integer, primary_key=True)
+        product = db.Column(db.String(120), unique=False, nullable=False)
+        price = db.Column(db.Float, unique=False, nullable=False)
+        vip_price = db.Column(db.Float,unique=False, nullable=True)
+        image_product = db.Column(db.String(200),unique=False, nullable=False)
+        description = db.Column(db.String(180), unique=False, nullable=False)
+        type = db.Column(db.String(80), unique=False, nullable=True)
+        stock = db.Column(db.Integer, unique=False, nullable=True)
+
+        def __repr__(self):
+            return f'<Coach {self.product}>'
+        
+        def serialize(self):
+            return {
+            "id": self.id,
+            "product": self.product,
+            "price":self.price,
+            "vip_price":self.vip_price,
+            "image_product":self.image_product,
+            "description":self.description,
+            "type": self.type,
+            "stock":self.stock
+        }
+
+class Club (db.Model):
+    __table_name__='club'
+    id = db.Column(db.Integer, primary_key=True)
+    city = db.Column(db.String(60), unique=False, nullable=False)
+    gym = db.Column(db.String(60), unique=False, nullable=False)
+    address = db.Column(db.String(180),unique=False, nullable=True)
+    phone = db.Column(db.String(60),unique=False, nullable=False)
+    email = db.Column(db.String(60), unique=False, nullable=False)
+    url = db.Column(db.String(60), unique=False, nullable=True)
+    
+
+    def __repr__(self):
+        return f'<Name {self.gym}>'
+        
+    def serialize(self):
+        return {
+        "id": self.id,
+        "city": self.city,
+        "gym":self.gym,
+        "address":self.address,
+        "phone":self.phone,
+        "email":self.email,
+        "url":self.url,
+        }
