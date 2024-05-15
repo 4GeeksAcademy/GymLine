@@ -6,11 +6,17 @@ const getState = ({ getStore, getActions, setStore }) => {
             token: null,
             user: null,
             logged: null,
-            products: null,
+            products: [],
             dataProduct: null,
             users: null,
             clubs: null,
-            dataClub: null
+            dataClub: null,
+            cart: [],
+            counter: 0,
+            equipamientoProducts: null,
+            calisteniaProducts: null,
+            accesoriosProducts: null,
+            suplementosProducts: null,
         },
         actions: {
             getProducts: async () => {
@@ -57,7 +63,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                         const data = await response.json();
                         console.log("The data", data);
                         setStore({
-                            dataProduct: data.results
+                            dataProduct: data.results[0]
                         });
                         return true;
                     } else {
@@ -563,7 +569,24 @@ const getState = ({ getStore, getActions, setStore }) => {
                 });
                 sessionStorage.removeItem("token");
                 sessionStorage.removeItem("userID");
-            }
+            },
+            addCart: (name) => {
+				setStore({
+					favourites: [...getStore().favourites, name],
+					counter: getStore().counter + 1,
+				});
+			},
+			deleteCart: (name) => {
+				const currentcart = getStore().cart;
+				const updatedcart = currentcart.filter((cart) => cart !== name);
+
+				setStore({
+					cart: updatedcart,
+					counter: updatedcart.length,
+				});
+			},
+            
+             
         }
     };
 };

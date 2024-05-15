@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/login.css";
@@ -9,6 +9,20 @@ export const Navbar = () => {
     const [password, setPassword] = useState("");
 	const navigate = useNavigate();
     const [errorMessage,setErrorMessage]=useState("");
+
+	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+	const handleToggleDropdown = () => {
+		setIsDropdownOpen(!isDropdownOpen);
+	};
+
+	useEffect(() => {
+		if (store.cart.length > 0) {
+			setIsDropdownOpen(true);
+		} else {
+			setIsDropdownOpen(false);
+		}
+	}, [store.favorites]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -99,9 +113,28 @@ export const Navbar = () => {
 					</Link>
 					{/* <a class="dropdown-item" href="#">Forgot password?</a> */}
 				</div>
-				<button className="btn btn-secondary me-5">
-					<i className="fa-solid fa-cart-shopping"></i>
-				</button>
+				
+				<div className="dropdown">
+						<button
+							className="btn btn-secondary dropdown-toggle me-5"
+							style={{ width: "200px" }}
+							type="button"
+							id="Button1"
+							onClick={handleToggleDropdown}>
+							<i className="fa-solid fa-cart-shopping"></i> <span className="counter">{store.counter}</span>
+						</button>
+
+						<ul className={`dropy dropdown-menu${isDropdownOpen ? ' show' : ''}`} aria-labelledby="dropdownMenuButton1">
+							{store.cart.map((item, index) => (
+								<li className="text-dark d-flex justify-content-between" key={index}>
+									{item}
+									<span className="bean">
+										<i className="fas fa-trash" onClick={() => actions.deleteFavorites(item)}></i>
+									</span>
+								</li>
+							))}
+						</ul>
+					</div>
 			</div>
 			{errorMessage && (
 				<div className="alert alert-danger mt-3" role="alert">
