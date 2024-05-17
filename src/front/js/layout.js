@@ -18,6 +18,7 @@ import Usersmanagment from "./pages/usersmanagment";
 
 import Shop from "./pages/shop"; 
 import { Product } from "./pages/product";
+import { Cart } from "./pages/cart";
 //create your first component
 const Layout = () => {
     //the basename is used when your project is published in a subdirectory and not in the root of the domain
@@ -30,6 +31,7 @@ const Layout = () => {
     const { store, actions } = useContext(Context);
 
     const isAdmin = store.user && store.user.rol === "admin";
+    const isLoged = store.user && store.user.rol === "admin" || "member" || "coach";
     //const isAdmin = true;
     console.log(store.user)
     console.log(isAdmin)
@@ -53,6 +55,7 @@ const Layout = () => {
                         <Route element={<Shop />} path="/shop" />
                         <Route element={<Guest />} path="/guest" />
                         <Route element={<Product />} path="/product/:uid" />
+                        <Route element={isLoged ? <Cart /> : <Navigate to="/login" />} path="/cart" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

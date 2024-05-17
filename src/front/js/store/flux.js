@@ -13,10 +13,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             dataClub: null,
             cart: [],
             counter: 0,
-            equipamientoProducts: null,
-            calisteniaProducts: null,
-            accesoriosProducts: null,
-            suplementosProducts: null,
+            total: 0,
         },
         actions: {
             getProducts: async () => {
@@ -570,19 +567,21 @@ const getState = ({ getStore, getActions, setStore }) => {
                 sessionStorage.removeItem("token");
                 sessionStorage.removeItem("userID");
             },
-            addCart: (name) => {
+            addCart: (name, price) => {
 				setStore({
-					favourites: [...getStore().favourites, name],
+					cart: [...getStore().cart, name],
 					counter: getStore().counter + 1,
+                    total: getStore().total + price
 				});
 			},
-			deleteCart: (name) => {
+			deleteCart: (name, price) => {
 				const currentcart = getStore().cart;
 				const updatedcart = currentcart.filter((cart) => cart !== name);
 
 				setStore({
 					cart: updatedcart,
 					counter: updatedcart.length,
+                    total: getStore().total - price,
 				});
 			},
             

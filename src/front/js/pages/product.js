@@ -32,15 +32,17 @@ export const Product = () => {
                         type="button"
 
                          onClick={() => {
-                            const name = `${product.product}`;
-                            const isBuy = store.favourites.includes(name)
-
+                            const name = store.dataProduct?.product
+                            const isBuy = store.cart.includes(name)
+                            const price = store.dataProduct?.price
+                            
                             if (isBuy) {
                                 console.log(name + "true")
-                                actions.deleteCart(name);
+                                actions.deleteCart(name,price);
+
                             } else {
                                 console.log(name + "false")
-                                actions.addCart(name);
+                                actions.addCart(name,price);
                             }
                         }}> 
                         <p>AÑADIR AL CARRRITO</p>
