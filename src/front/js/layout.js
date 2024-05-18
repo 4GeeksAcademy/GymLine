@@ -31,7 +31,7 @@ const Layout = () => {
     const { store, actions } = useContext(Context);
 
     const isAdmin = store.user && store.user.rol === "admin";
-    const isLoged = store.user && store.user.rol === "admin" || "member" || "coach";
+    const isLoged = store.logged;
     //const isAdmin = true;
     console.log(store.user)
     console.log(isAdmin)

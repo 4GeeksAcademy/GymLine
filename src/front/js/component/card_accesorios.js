@@ -11,12 +11,12 @@ const ProductCardAccesorio = ({ product }) => {
   }
 
   return (
-    <Link to={`/product/${product.id}`} ref={cardRef}>
-      <div class="card" style={{ width: "15rem" }}>
-        <img src={product.image_product} className="card-img-top" alt={product.product} />
+    <Link to={`/product/${product.id}`} ref={cardRef} style={{textDecoration:"none", color: "black"}}>
+      <div class="card" style={{ width: "15rem", height:"100%"  }}>
+        <img src={`images/${product.image_product}`} className="card-img-top" alt={product.product} />
         <div class="card-body">
           <h5 className="card-title">{product.product}</h5>
-          <p className="card-text">{product.price}</p>
+          <p className="card-text">{product.price}€</p>
         </div>
       </div>
     </Link>

@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate, Navigate } from "react-router-dom";
 import "../../styles/login.css";
+import "../../styles/index.css"
 
 export const Navbar = () => {
 	const { store, actions } = useContext(Context);
@@ -44,7 +45,7 @@ export const Navbar = () => {
 	};
 
 	return (
-		<header className="d-flex justify-content-between align-items-center py-3 backg-header">
+		<header className="d-flex justify-content-between align-items-center py-3 backg-header nav-gym">
 			<div className="logo">
 				<a href="/" className="d-flex align-items-center">
 					<img src="logo" alt="Logo" className="me-2" />

@@ -1,26 +1,30 @@
-.footer.mt-auto.py-3.text-center{
-    position:fixed;
+.footer.mt-auto.py-3.text-center {
+    position: fixed;
     left: 0;
     bottom: 0;
     text-align: center;
     width: 100%;
     background-color: #740c0c;
-    border:solid;
+    border: solid;
     border-color: black;
 }
+
 .link-container {
     display: inline-block;
     margin-right: 20px;
-    margin-left:0;
+    margin-left: 0;
     transition: margin-right 0.3s ease, margin-left 0.3s ease;
 }
+
 .link-container:hover {
     margin-right: 30px;
     margin-left: 10px;
 }
-.link-container:hover ~ .link-container {
+
+.link-container:hover~.link-container {
     margin-right: 10px;
 }
+
 .link-container a {
     color: #FDD700;
     text-decoration: none;
@@ -34,28 +38,78 @@
 }
 
 body {
-    background-image: url('../img/fondo_pattern.jpg');
-    background-repeat: repeat; 
-    background-size: 200% 200%;
-    background-position: 50px 50px;
-  }
 
-.backg-header{
+   
+    overflow-x: hidden;
+    background-image: url('../../../dist/images/fondo_pattern.jpg');
+    background-repeat: repeat;
+    background-size: auto;
+}
+
+.backg-header {
     background-color: #740C0C;
 }
+
 .button-container-adminview {
     display: flex;
-    justify-content: center; /* Centra los botones horizontalmente */
+    justify-content: center;
+    /* Centra los botones horizontalmente */
     gap: 5vw;
     max-width: 1000px;
     margin: 0 auto;
-    overflow-x: auto; /* Permitir el desplazamiento horizontal si los botones no caben en una sola fila */
+    overflow-x: auto;
+    /* Permitir el desplazamiento horizontal si los botones no caben en una sola fila */
 
 }
+
 .button-adminview {
     flex: 1;
     max-width: 20vw;
-    min-width: 200px; /* Ancho mínimo para los botones */
+    min-width: 200px;
+    /* Ancho mínimo para los botones */
     height: 50vh;
     margin-top: 10vh;
+}
+
+.button_slide {
+    color: #FFF;
+    border: 2px solid #740C0C;
+    border-radius: 0px;
+    padding: 18px 36px;
+    display: inline-block;
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 0 #740C0C;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+}
+
+.slide_left:hover {
+    box-shadow: inset 0 0 0 50px #740C0C;
+}
+
+.button-none {
+    background: none;  /* Quita el color de fondo */
+    border: none;      /* Quita el borde */
+    box-shadow: none;  /* Quita cualquier sombra */
+    outline: none;     /* Quita el contorno al hacer clic */
+    font: inherit;     /* Hereda la fuente del elemento padre */
+    color: inherit;    /* Hereda el color de texto del elemento padre */
+    text-decoration: none;  /* Quita la decoración de texto, como subrayado */
+    cursor: pointer;   /* Cambia el cursor para indicar que es un botón clicable */
+}
+
+.text-carrito{
+    color: black;
+    font-size: 15px;
+}
+
+.nav-gym{
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
 }
