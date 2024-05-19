@@ -33,7 +33,7 @@ const injectContext = PassedComponent => {
 			//state.actions.modifyProduct(20, "Producto 107", 4000, null, null, null, null);
 			//state.actions.deleteProduct(16);
 			//state.actions.deleteUser(4);
-			//state.actions.modifyUser(3, null, 856, null, null, "Ricky")
+			state.actions.addProductCar(1,3);
 
 		}, []);
 

@@ -10,9 +10,106 @@ const getState = ({ getStore, getActions, setStore }) => {
             dataProduct: null,
             users: null,
             clubs: null,
-            dataClub: null
+            dataClub: null ,
+            orderShop: null,
+            carshop: null
         },
         actions: {
+            getProductCar: async (id) => {
+                try {
+                    const response = await fetch(process.env.BACKEND_URL + "/api/shop_car/" + id, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    });
+                    console.log(response);
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log("The data", data);
+                        setStore({
+                            carshop: data.results
+                        });
+                        return true;
+                    } else {
+                        const errorData = await response.json();
+                        if (errorData.message) {
+                            console.error(`Get Product: ${errorData.message}`);
+                        } else {
+                            console.error("An error occurred during Get Product in car");
+                        }
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("An error occurred getting product in car", error);
+                    return false;
+                }
+            },
+
+            addProductCar: async (user_id, product_id) => {
+                try {
+                    
+                    const response = await fetch(process.env.BACKEND_URL + "/api/shop_car", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            "user_id": user_id,
+                            "product_id": product_id,
+                        })
+                    });
+                    console.log(response);
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
+                        return true;
+                    } else {
+                        const errorData = await response.json();
+                        if (errorData.message) {
+                            console.error(`Product Addition in Car Error: ${errorData.message}`);
+                        } else {
+                            console.error("An error occurred during product addition in car");
+                        }
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("An error occurred during product addition in car", error);
+                    return false;
+                }
+            },
+
+            deleteCar: async (id) => {
+                try {
+                    const response = await fetch(process.env.BACKEND_URL + `/api/shop_car/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    console.log(response);
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
+                        return true;
+                    } else {
+                        const errorData = await response.json();
+                        if (errorData.message) {
+                            console.error(`Product Deletion Error: ${errorData.message}`);
+                        } else {
+                            console.error("An error occurred during product deletion");
+                        }
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("An error occurred during product deletion", error);
+                    return false;
+                }
+            },
+  
+            
             getProducts: async () => {
                 try {
                     const response = await fetch(process.env.BACKEND_URL + "/api/products", {
@@ -26,7 +123,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                         const data = await response.json();
                         console.log("The data", data);
                         setStore({
-                            products: data.results
+                            products: orderShop
                         });
                         return true;
                     } else {
@@ -183,6 +280,17 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return false;
                 }
             },
+
+            calcTotal: (input) => {
+                setStore({
+                    orderShop: input,
+                });
+                sessionStorage.removeItem("token");
+                sessionStorage.removeItem("userID");
+            },
+
+
+            
 
             getClubs: async () => {
                 try {

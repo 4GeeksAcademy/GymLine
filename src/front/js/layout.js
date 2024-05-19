@@ -14,6 +14,7 @@ import Admin from "./pages/admin";
 import Member from "./pages/member";
 import Coach from "./pages/coach";
 import Guest from "./pages/guest";
+import CarEmpty from "./pages/carEmpty";
 
 //create your first component
 const Layout = () => {
@@ -36,6 +37,7 @@ const Layout = () => {
                         <Route element={<Member />} path="/member" />
                         <Route element={<Coach />} path="/coach" />
                         <Route element={<Guest />} path="/guest" />
+                        <Route element={<CarEmpty />} path="/carEmpty" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

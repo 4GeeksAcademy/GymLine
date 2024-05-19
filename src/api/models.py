@@ -67,7 +67,7 @@ class Shop (db.Model):
         stock = db.Column(db.Integer, unique=False, nullable=True)
 
         def __repr__(self):
-            return f'<Coach {self.product}>'
+            return f'<Product {self.product}>'
         
         def serialize(self):
             return {
@@ -104,4 +104,23 @@ class Club (db.Model):
         "phone":self.phone,
         "email":self.email,
         "url":self.url,
+        }
+    
+class Shop_car(db.Model):
+    __table_name__='shop_car'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user = db.relationship(User)
+    product_id = db.Column(db.Integer, db.ForeignKey('shop.id'))
+    product = db.relationship(Shop)
+    
+
+    def __repr__(self):
+        return f'<id {self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "product_id": self.product_id
         }
