@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Coach, Shop, Club
+from api.models import db, User, Coach, Shop, Club,Shop_car
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token
@@ -338,3 +338,58 @@ def delete_gym (gym_id):
     db.session.commit()
     response_body = {'msg':'Gym deleted'}
     return jsonify (response_body) , 200
+
+# Endpoint Post Shop Car
+
+@api.route ('/shop_car', methods=['POST'])
+def handle_add_car():
+    data = request.json
+    if 'user_id' not in data or 'product_id' not in data :
+        raise APIException('Some fields are missing', status_code=400)
+    car = Shop_car(
+        user_id=data['user_id'],
+        product_id=data['product_id'] 
+    )
+    db.session.add(car)
+    db.session.commit()
+    return jsonify(car.serialize()), 201
+
+# Endpoint Get Shop Car
+
+@api.route('/shop_car/<int:user_id>', methods=['GET'])
+def handle_get_car(user_id): 
+    response_body = {}
+
+    # Realiza un join entre Shop_car y Shop
+    car_items = db.session.query(Shop_car, Shop).join(Shop, Shop_car.product_id == Shop.id).filter(Shop_car.user_id == user_id).all()
+    
+    if not car_items:
+        raise APIException('User does not have products in car', status_code=400)
+    
+    # Construye la respuesta serializada
+    results = []
+    for car_item, product in car_items:
+        item_data = car_item.serialize()
+        item_data['product'] = product.serialize()
+        results.append(item_data)
+    
+    response_body['results'] = results
+    response_body['message'] = 'Method GET products in car by user'
+    
+    return jsonify(response_body), 200
+
+# Endpoint Delete Products of user in car
+@api.route('/shop_car/<int:user_id>', methods=['DELETE'])
+def delete_user_car_items(user_id):
+    car_items = Shop_car.query.filter_by(user_id=user_id).all()
+    
+    if not car_items:
+        raise APIException('User does not have products in car', status_code=400)
+    
+    for item in car_items:
+        db.session.delete(item)
+    
+    db.session.commit()
+    
+    response_body = {'msg': 'Products of user deleted'}
+    return jsonify(response_body), 200
