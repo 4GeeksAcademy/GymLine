@@ -1,20 +1,31 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/login.css";
 const Login = () => {
     const { store, actions } = useContext(Context);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         const loginSuccess = await actions.login(email, password);
-        console.log(loginSuccess)
         if (!loginSuccess) {
             setErrorMessage("Login failed. Please check your credentials.");
-        }
+        }else{
+			console.log(store.user)
+			if(store.user.rol == "member"){
+				navigate("/member")
+			} else if(store.user.rol == "coach"){
+				navigate("/coach")
+			} else {
+				console.log("asdfasdfasdfasdf");
+				navigate("/adminview")
+			}
+			
+		}
     };
 
     return (
