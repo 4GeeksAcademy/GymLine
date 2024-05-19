@@ -17,9 +17,9 @@ const Login = () => {
         }else{
 			console.log(store.user)
 			if(store.user.rol == "member"){
-				<Navigate to="/member" />
+				navigate("/member")
 			} else if(store.user.rol == "coach"){
-				<Navigate to="/coach" />
+				navigate("/coach")
 			} else {
 				console.log("asdfasdfasdfasdf");
 				navigate("/adminview")
