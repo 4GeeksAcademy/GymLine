@@ -38,10 +38,7 @@
 }
 
 body {
-
-   
     overflow-x: hidden;
-    background-image: url('../../../dist/images/fondo_pattern.jpg');
     background-repeat: repeat;
     background-size: auto;
 }
@@ -49,40 +46,53 @@ body {
 .backg-header {
     background-color: #740C0C;
 }
+
 .button-container-adminview {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    /* Centra los botones horizontalmente */
     gap: 5vw;
     max-width: 1000px;
     margin: 0 auto;
     overflow-x: auto;
-    /* Permitir el desplazamiento horizontal si los botones no caben en una sola fila */
-
 }
 
 .button-adminview {
     flex: 1;
     max-width: 20vw;
     min-width: 200px;
-    /* Ancho mínimo para los botones */
     height: 50vh;
     margin-top: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    background-color: #740C0C;
+    color: white;
+    border: 10px solid #9b1b1b;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.button-adminview:hover {
+    background-color: #9b1b1b;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
 }
 
 .button_slide {
     color: #FFF;
-    border: 2px solid #740C0C;
-    border-radius: 0px;
+    border: 10px solid #740C0C;
+    border-radius: 10px;
     padding: 18px 36px;
     display: inline-block;
-    font-family: "Lucida Console", Monaco, monospace;
+    font-family: 'Roboto', sans-serif;
     font-size: 14px;
     letter-spacing: 1px;
     cursor: pointer;
     box-shadow: inset 0 0 0 0 #740C0C;
-    -webkit-transition: ease-out 0.4s;
-    -moz-transition: ease-out 0.4s;
     transition: ease-out 0.4s;
 }
 
@@ -91,24 +101,70 @@ body {
 }
 
 .button-none {
-    background: none;  /* Quita el color de fondo */
-    border: none;      /* Quita el borde */
-    box-shadow: none;  /* Quita cualquier sombra */
-    outline: none;     /* Quita el contorno al hacer clic */
-    font: inherit;     /* Hereda la fuente del elemento padre */
-    color: inherit;    /* Hereda el color de texto del elemento padre */
-    text-decoration: none;  /* Quita la decoración de texto, como subrayado */
-    cursor: pointer;   /* Cambia el cursor para indicar que es un botón clicable */
+    background: none;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    font: inherit;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
 }
 
-.text-carrito{
+.text-carrito {
     color: black;
     font-size: 15px;
 }
 
-.nav-gym{
+.nav-gym {
     width: 100%;
     left: 0;
     right: 0;
     top: 0;
+}
+
+@media (max-width: 768px) {
+    .button-adminview {
+        max-width: 90vw; 
+        height: auto;
+        min-height: 20vh;
+        margin-top: 5vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .button-adminview {
+        max-width: 100vw; 
+        height: auto;
+        min-height: 15vh;
+        margin-top: 3vh;
+        font-size: 14px;
+    }
+}
+
+.welcome-message {
+    font-family: 'Roboto', sans-serif;
+    font-size: 2.5em;
+    color: #FDD700;
+    background: linear-gradient(45deg, #740C0C, #6b1212);
+    padding: 20px;
+    border-radius: 2px;
+    border:5px;
+    border-color: black;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

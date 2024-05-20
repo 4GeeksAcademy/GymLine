@@ -3,23 +3,23 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
 const Adminview = () => {
-    
     const { store, actions } = useContext(Context);
 
     useEffect(() => {
-        
         if (!store.logged) {
             actions.verifyAuthToken();
         }
     }, [store.logged]);
-
+/*<Link to="/gymmanagment">
+                        <button className="button-adminview button_slide slide_left">Gimnasio</button>
+                    </Link>*/
     return (
         <div className="text-center">
             {store.logged && store.user && store.user.rol === "admin" ? (
                 <div>
-                    <h1>Bienvenido {store.user.name}, ¿Qué deseas revisar hoy?</h1>
+                   <h1 className="welcome-message">Bienvenido {store.user.name}, ¿Qué deseas revisar hoy?</h1>
                 </div>
-            ) : store.logged == false ? (
+            ) : store.logged === false ? (
                 <div>
                     <h1>Authenticating</h1>
                     <p>Checking..................</p>
@@ -33,15 +33,13 @@ const Adminview = () => {
             {store.logged && store.user && store.user.rol === "admin" && (
                 <div className="button-container-adminview">
                     <Link to="/shopmanagment">
-                        <button className="button-adminview">Tienda</button>
+                        <button className="button-adminview button_slide slide_left">Tienda</button>
                     </Link>
                     <Link to="/usersmanagment">
-                        <button className="button-adminview">Usuarios</button>
+                        <button className="button-adminview button_slide slide_left">Usuarios</button>
                     </Link>
-                    <Link to="/gymmanagment">
-                        <button className="button-adminview">Gimnasio</button>
-                    </Link>
-             </div>
+                    
+                </div>
             )}
         </div>
     );
