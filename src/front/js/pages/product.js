@@ -16,7 +16,7 @@ export const Product = () => {
         if (!isLoged) {
           navigate('/login'); // Redirige al login si no está logueado
         } else {
-          const name = store.dataProduct?.product;
+          /* const name = store.dataProduct?.product;
           const isBuy = store.cart.includes(name);
           const price = store.dataProduct?.price;
     
@@ -26,7 +26,9 @@ export const Product = () => {
           } else {
             console.log(name + "false");
             actions.addCart(name, price);
-          }
+          } */
+          console.log(store.user.id + " " + uid);
+          actions.addProductCar(store.user.id,uid)
         }
       };
 

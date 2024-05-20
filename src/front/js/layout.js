@@ -16,7 +16,7 @@ import Guest from "./pages/guest";
 import Adminview from "./pages/adminview";
 import Usersmanagment from "./pages/usersmanagment";
 import UsersmanagmentEdit from "./pages/usersmanagmentedit";
-import Shop from "./pages/shop"; 
+import Shop from "./pages/shop";
 import { Product } from "./pages/product";
 import { Cart } from "./pages/cart";
 import Shopmanagment from "./pages/shopmanagment";
@@ -42,31 +42,33 @@ const Layout = () => {
 
     return (
         <div>
-            
+
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
                     <Navbar />
-                    
-                    <Routes>
-                        <Route element={<Home />} path="/" />
-                        <Route element={<Signup />} path="/signup" />
-                        <Route element={<Login />} path="/login" />
-                        <Route element={<Admin />} path="/admin" />
-                        <Route element={<AccessDenied />} path="/accesdenied" />
-                        <Route element={isAdmin ? <Adminview /> :  <Navigate to="/accesdenied" />} path={"/adminview"} />
-                        <Route element={isAdmin ? <Usersmanagment /> : <Navigate to="/accesdenied" />} path={"/usersmanagment"} />
-                        <Route element={isAdmin ? <Shopmanagment /> : <Navigate to="/accesdenied" />} path={"/shopmanagment"} />
-                        <Route element={isAdmin ? <ShopManagmentCreate /> : <Navigate to="/accesdenied" />} path={"/shopmanagmentcreate"} />
-                        <Route element={isAdmin ? <UsersmanagmentEdit /> : <Navigate to="/accesdenied" />} path={"/usermanagmentedit/:theid"} />
-                        <Route element={isAdmin ? <ShopManagmentEdit /> : <Navigate to="/accesdenied" />} path={"/shopmanagmentedit/:theid"} />
-                        <Route element={<Member />} path="/member" />
-                        <Route element={<Coach />} path="/coach" />
-                        <Route element={<Shop />} path="/shop" />
-                        <Route element={<Guest />} path="/guest" />
-                        <Route element={<Product />} path="/product/:uid" />
-                        <Route element={isLoged ? <Cart /> : <Navigate to="/login" />} path="/cart" />
-                        <Route element={<h1>Not found!</h1>} />
-                    </Routes>
+                    <div className="content">
+                        <Routes>
+                            <Route element={<Home />} path="/" />
+                            <Route element={<Signup />} path="/signup" />
+                            <Route element={<Login />} path="/login" />
+                            <Route element={<Admin />} path="/admin" />
+                            <Route element={<AccessDenied />} path="/accesdenied" />
+                            <Route element={isAdmin ? <Adminview /> : <Navigate to="/accesdenied" />} path={"/adminview"} />
+                            <Route element={isAdmin ? <Usersmanagment /> : <Navigate to="/accesdenied" />} path={"/usersmanagment"} />
+                            <Route element={isAdmin ? <Shopmanagment /> : <Navigate to="/accesdenied" />} path={"/shopmanagment"} />
+                            <Route element={isAdmin ? <ShopManagmentCreate /> : <Navigate to="/accesdenied" />} path={"/shopmanagmentcreate"} />
+                            <Route element={isAdmin ? <UsersmanagmentEdit /> : <Navigate to="/accesdenied" />} path={"/usermanagmentedit/:theid"} />
+                            <Route element={isAdmin ? <ShopManagmentEdit /> : <Navigate to="/accesdenied" />} path={"/shopmanagmentedit/:theid"} />
+                            <Route element={<Member />} path="/member" />
+                            <Route element={<Coach />} path="/coach" />
+                            <Route element={<Shop />} path="/shop" />
+                            <Route element={<Guest />} path="/guest" />
+                            <Route element={<Product />} path="/product/:uid" />
+                            <Route element={isLoged ? <Cart /> : <Navigate to="/login" />} path="/cart" />
+                            <Route element={<h1>Not found!</h1>} />
+                        </Routes>
+                    </div>
+
                     <Footer />
                 </ScrollToTop>
             </BrowserRouter>

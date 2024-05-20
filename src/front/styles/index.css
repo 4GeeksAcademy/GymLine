@@ -1,5 +1,5 @@
 .footer.mt-auto.py-3.text-center {
-    position: fixed;
+    position: fixed; 
     left: 0;
     bottom: 0;
     text-align: center;
@@ -40,10 +40,10 @@
 body {
 
    
-    overflow-x: hidden;
+   /*  overflow-x: hidden;
     background-image: url('../../../dist/images/fondo_pattern.jpg');
     background-repeat: repeat;
-    background-size: auto;
+    background-size: auto;  */
 }
 
 .backg-header {
@@ -60,6 +60,8 @@ body {
     /* Permitir el desplazamiento horizontal si los botones no caben en una sola fila */
 
 }
+
+
 
 .button-adminview {
     flex: 1;

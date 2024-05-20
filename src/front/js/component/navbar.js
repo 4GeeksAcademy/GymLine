@@ -25,6 +25,9 @@ export const Navbar = () => {
 		}
 	}, [store.favorites]);
 
+	
+	
+
 	const handleLogin = async (e) => {
 		e.preventDefault();
 		const loginSuccess = await actions.login(email, password);
@@ -53,7 +56,7 @@ export const Navbar = () => {
 		<header className="d-flex justify-content-between align-items-center py-3 backg-header nav-gym">
 			<div className="logo">
 			<a href="/adminview" className="d-flex align-items-center" onClick={handleClick}>
-				<img src="logo" alt="Logo" className="me-2" />
+				<img src="icono" alt="Logo" className="me-3" style={{width:"25%", height:"10%", marginLeft:"30px"}}/>
 			</a>
 			</div>
 			<div className="d-flex align-items-center">
@@ -120,16 +123,17 @@ export const Navbar = () => {
 					{/* <a class="dropdown-item" href="#">Forgot password?</a> */}
 				</div>
 
-				<div className="dropdown">
+				<div className="dropdown" style={{marginRight:"10%"}}>
+				<Link to="/cart">
 					<button
-						className="btn btn-secondary dropdown-toggle me-5"
+						className="btn btn-secondary me-5"
 						style={{ width: "100%" }}
 						type="button"
-						id="Button1"
-						onClick={handleToggleDropdown}>
-						<i className="fa-solid fa-cart-shopping"></i> <span className="counter">{store.counter}</span>
+						id="Button1">
+						{/* /* onClick={handleToggleDropdown} */ }
+						<i className="fa-solid fa-cart-shopping"></i>
 					</button>
-
+				</Link>
 					<ul className={`dropy dropdown-menu${isDropdownOpen ? ' show' : ''}`} aria-labelledby="dropdownMenuButton1">
 						{store.cart.map((item, index) => (
 							<li className="text-dark d-flex justify-content-between" key={index}>
