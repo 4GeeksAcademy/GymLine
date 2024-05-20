@@ -105,3 +105,22 @@ class Club (db.Model):
         "email":self.email,
         "url":self.url,
         }
+
+class Shop_car(db.Model):
+    __table_name__='shop_car'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user = db.relationship(User)
+    product_id = db.Column(db.Integer, db.ForeignKey('shop.id'))
+    product = db.relationship(Shop)
+    
+
+    def __repr__(self):
+        return f'<id {self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "product_id": self.product_id
+        }

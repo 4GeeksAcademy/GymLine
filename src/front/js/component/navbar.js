@@ -32,10 +32,10 @@ export const Navbar = () => {
 			setErrorMessage("Login failed. Please check your credentials.");
 		} else {
 			console.log(store.user)
-			if (store.user.rol == "member") {
-				<Navigate to="/member" />
-			} else if (store.user.rol == "coach") {
-				<Navigate to="/coach" />
+			if(store.user.rol == "member"){
+				navigate("/member");
+			} else if(store.user.rol == "coach"){
+				navigate("/coach");
 			} else {
 				console.log("asdfasdfasdfasdf");
 				navigate("/adminview")
@@ -44,12 +44,17 @@ export const Navbar = () => {
 		}
 	};
 
+	const handleClick = (event) => {
+		event.preventDefault();
+		navigate('/');
+	  };
+
 	return (
 		<header className="d-flex justify-content-between align-items-center py-3 backg-header nav-gym">
 			<div className="logo">
-				<a href="/" className="d-flex align-items-center">
-					<img src="logo" alt="Logo" className="me-2" />
-				</a>
+			<a href="/adminview" className="d-flex align-items-center" onClick={handleClick}>
+				<img src="logo" alt="Logo" className="me-2" />
+			</a>
 			</div>
 			<div className="d-flex align-items-center">
 				<Link to="/shop">
