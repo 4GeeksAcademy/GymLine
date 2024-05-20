@@ -52,6 +52,7 @@ const Layout = () => {
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<Admin />} path="/admin" />
+                        <Route element={<UserDetails />} path="/profile" />
                         <Route element={<AccessDenied />} path="/accesdenied" />
                         <Route element={isAdmin ? <Adminview /> :  <Navigate to="/accesdenied" />} path={"/adminview"} />
                         <Route element={isAdmin ? <Usersmanagment /> : <Navigate to="/accesdenied" />} path={"/usersmanagment"} />

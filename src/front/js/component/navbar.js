@@ -61,7 +61,7 @@ export const Navbar = () => {
 					<button className="btn btn-secondary me-4">TIENDA</button>
 				</Link>
 				<button className="btn btn-secondary me-4 ms-4">GYM</button>
-				<Link to={store.logged ? `/profile/${store.user.id}` : "/login"}>
+				<Link to={store.logged ? `/profile` : "/login"}>
 					<button
 						className="btn btn-secondary me-4 ms-4"
 					>
