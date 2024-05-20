@@ -10,6 +10,7 @@ export const Product = () => {
     const navigate = useNavigate(); // Hook para redirigir
     const isLoged = store.logged;
 
+    
 
     const handleClick = () => {
         if (!isLoged) {
@@ -37,6 +38,7 @@ export const Product = () => {
     console.log(store.dataProduct?.image_product);
 
     return (
+        
         <div className="container border border-danger">
             <div className="col-12 col-md-12 d-flex border border-danger mt-3" style={{ width: "100%" }}>
                 <div className="col-6">
