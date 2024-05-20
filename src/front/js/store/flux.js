@@ -6,11 +6,14 @@ const getState = ({ getStore, getActions, setStore }) => {
             token: null,
             user: null,
             logged: null,
-            products: null,
+            products: [],
             dataProduct: null,
             users: null,
             clubs: null,
             dataClub: null,
+            cart: [],
+            counter: 0,
+            total: 0,
             carshop: null
         },
         actions: {
@@ -153,7 +156,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                         const data = await response.json();
                         console.log("The data", data);
                         setStore({
-                            dataProduct: data.results
+                            dataProduct: data.results[0]
                         });
                         return true;
                     } else {
@@ -659,7 +662,26 @@ const getState = ({ getStore, getActions, setStore }) => {
                 });
                 sessionStorage.removeItem("token");
                 sessionStorage.removeItem("userID");
-            }
+            },
+            addCart: (name, price) => {
+				setStore({
+					cart: [...getStore().cart, name],
+					counter: getStore().counter + 1,
+                    total: getStore().total + price
+				});
+			},
+			deleteCart: (name, price) => {
+				const currentcart = getStore().cart;
+				const updatedcart = currentcart.filter((cart) => cart !== name);
+
+				setStore({
+					cart: updatedcart,
+					counter: updatedcart.length,
+                    total: getStore().total - price,
+				});
+			},
+            
+             
         }
     };
 };

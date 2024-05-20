@@ -18,6 +18,7 @@ import Usersmanagment from "./pages/usersmanagment";
 import UsersmanagmentEdit from "./pages/usersmanagmentedit";
 import Shop from "./pages/shop"; 
 import { Product } from "./pages/product";
+import { Cart } from "./pages/cart";
 import Shopmanagment from "./pages/shopmanagment";
 import ShopManagmentEdit from "./pages/shopmanagmentedit";
 import ShopManagmentCreate from "./pages/shopmanagmentcreate";
@@ -34,6 +35,7 @@ const Layout = () => {
     const { store, actions } = useContext(Context);
 
     const isAdmin = store.user && store.user.rol === "admin";
+    const isLoged = store.logged;
     //const isAdmin = true;
     console.log(store.user)
     console.log(isAdmin)
@@ -61,7 +63,8 @@ const Layout = () => {
                         <Route element={<Coach />} path="/coach" />
                         <Route element={<Shop />} path="/shop" />
                         <Route element={<Guest />} path="/guest" />
-                        <Route element={<Product />} path="/product/:id" />
+                        <Route element={<Product />} path="/product/:uid" />
+                        <Route element={isLoged ? <Cart /> : <Navigate to="/login" />} path="/cart" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
