@@ -461,6 +461,37 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
+            getDataUser: async (id) => {
+                try {
+                    const response = await fetch(process.env.BACKEND_URL + "/api/user/" + id, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    });
+                    console.log(response);
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log("The data", data);
+                        setStore({
+                            userData: data.results[0]
+                        });
+                        return true;
+                    } else {
+                        const errorData = await response.json();
+                        if (errorData.message) {
+                            console.error(`Get User: ${errorData.message}`);
+                        } else {
+                            console.error("An error occurred during Get User");
+                        }
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("An error occurred getting user", error);
+                    return false;
+                }
+            },
+
 
             getAllUsers: async () => {
                 const token = sessionStorage.getItem("token");

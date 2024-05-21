@@ -6,7 +6,7 @@ const Usersmanagmentedit = () => {
     const { store, actions } = useContext(Context);
     const { theid } = useParams();
     const [user, setUser] = useState(null);
-    const [editedUser, setEditedUser] = useState(null); // Para almacenar los cambios en el usuario
+    const [editedUser, setEditedUser] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,7 +20,7 @@ const Usersmanagmentedit = () => {
                 }
                 const selectedUser = store.users.find(u => u.id === parseInt(theid));
                 setUser(selectedUser);
-                setEditedUser({ ...selectedUser }); // Inicializar editedUser con los datos del usuario seleccionado
+                setEditedUser({ ...selectedUser });
             }
         };
         fetchData();
@@ -35,15 +35,15 @@ const Usersmanagmentedit = () => {
     };
 
     const handleSave = async () => {
-        const { email, password, nickname, name, lastname } = editedUser;
-        const success = await actions.modifyUser(theid, email, password, nickname, name, lastname);
+        const { email, password, nickname, name, lastname, rol } = editedUser;
+        const success = await actions.modifyUser(theid, email, password, nickname, name, lastname, rol);
         if (success) {
-            navigate("/usermanagment");
+            navigate("/usersmanagment");
         }
     };
 
     const handleCancel = () => {
-        navigate("/usermanagment");
+        navigate("/usersmanagment");
     };
 
     if (!store.user || store.user.rol !== "admin") {
@@ -55,15 +55,24 @@ const Usersmanagmentedit = () => {
     }
 
     return (
-        <div className="text-center">
-            <div className="container border">
+        <div className="shopmanagement-edit-container">
+            <div className="product-form">
+                <h2>Editar Usuario</h2>
                 <p>Email: <input type="text" name="email" value={editedUser.email} onChange={handleChange} /></p>
                 <p>Contraseña: <input type="password" name="password" value={editedUser.password} onChange={handleChange} /></p>
                 <p>Nickname: <input type="text" name="nickname" value={editedUser.nickname} onChange={handleChange} /></p>
                 <p>Nombre: <input type="text" name="name" value={editedUser.name} onChange={handleChange} /></p>
                 <p>Apellido: <input type="text" name="lastname" value={editedUser.lastname} onChange={handleChange} /></p>
-                <button onClick={handleSave}>Guardar</button>
-                <button onClick={handleCancel}>Cancelar</button>
+                <p>Rol: 
+                    <select name="rol" value={editedUser.rol} onChange={handleChange}>
+                        <option value="member">Miembro</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                </p>
+                <div className="form-actions">
+                    <button className="btn save-btn" onClick={handleSave}>Guardar</button>
+                    <button className="btn cancel-btn" onClick={handleCancel}>Cancelar</button>
+                </div>
             </div>
         </div>
     );
