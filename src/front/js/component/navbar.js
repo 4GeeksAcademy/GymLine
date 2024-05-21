@@ -72,6 +72,11 @@ export const Navbar = () => {
                             {store.logged ? store.user.name : "ACCEDER"}
                         </button>
                     </Link>
+                    {store.user && store.user.rol === "admin" && (
+                        <Link to="/adminview" className="nav-link">
+                            <button className="btn btn-secondary">Adminview</button>
+                        </Link>
+					)}
                     <div className="dropdown">
                         <button
                             className="btn btn-secondary dropdown-toggle"
