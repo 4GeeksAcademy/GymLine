@@ -23,50 +23,44 @@ import Shopmanagment from "./pages/shopmanagment";
 import ShopManagmentEdit from "./pages/shopmanagmentedit";
 import ShopManagmentCreate from "./pages/shopmanagmentcreate";
 import AccessDenied from "./pages/accesdenied";
-//create your first component
+
 const Layout = () => {
-    //the basename is used when your project is published in a subdirectory and not in the root of the domain
-    // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
     const basename = process.env.BASENAME || "";
 
     if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL />;
 
-    // Obtener el contexto para verificar el rol del usuario
     const { store, actions } = useContext(Context);
 
     const isAdmin = store.user && store.user.rol === "admin";
     const isLoged = store.logged;
-    //const isAdmin = true;
-    console.log(store.user)
-    console.log(isAdmin)
 
     return (
-        <div>
-            
+        <div className="d-flex flex-column min-vh-100">
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
                     <Navbar />
-                    
-                    <Routes>
-                        <Route element={<Home />} path="/" />
-                        <Route element={<Signup />} path="/signup" />
-                        <Route element={<Login />} path="/login" />
-                        <Route element={<Admin />} path="/admin" />
-                        <Route element={<AccessDenied />} path="/accesdenied" />
-                        <Route element={isAdmin ? <Adminview /> :  <Navigate to="/accesdenied" />} path={"/adminview"} />
-                        <Route element={isAdmin ? <Usersmanagment /> : <Navigate to="/accesdenied" />} path={"/usersmanagment"} />
-                        <Route element={isAdmin ? <Shopmanagment /> : <Navigate to="/accesdenied" />} path={"/shopmanagment"} />
-                        <Route element={isAdmin ? <ShopManagmentCreate /> : <Navigate to="/accesdenied" />} path={"/shopmanagmentcreate"} />
-                        <Route element={isAdmin ? <UsersmanagmentEdit /> : <Navigate to="/accesdenied" />} path={"/usermanagmentedit/:theid"} />
-                        <Route element={isAdmin ? <ShopManagmentEdit /> : <Navigate to="/accesdenied" />} path={"/shopmanagmentedit/:theid"} />
-                        <Route element={<Member />} path="/member" />
-                        <Route element={<Coach />} path="/coach" />
-                        <Route element={<Shop />} path="/shop" />
-                        <Route element={<Guest />} path="/guest" />
-                        <Route element={<Product />} path="/product/:uid" />
-                        <Route element={isLoged ? <Cart /> : <Navigate to="/login" />} path="/cart" />
-                        <Route element={<h1>Not found!</h1>} />
-                    </Routes>
+                    <div className="flex-grow-1">
+                        <Routes>
+                            <Route element={<Home />} path="/" />
+                            <Route element={<Signup />} path="/signup" />
+                            <Route element={<Login />} path="/login" />
+                            <Route element={<Admin />} path="/admin" />
+                            <Route element={<AccessDenied />} path="/accesdenied" />
+                            <Route element={isAdmin ? <Adminview /> :  <Navigate to="/accesdenied" />} path={"/adminview"} />
+                            <Route element={isAdmin ? <Usersmanagment /> : <Navigate to="/accesdenied" />} path={"/usersmanagment"} />
+                            <Route element={isAdmin ? <Shopmanagment /> : <Navigate to="/accesdenied" />} path={"/shopmanagment"} />
+                            <Route element={isAdmin ? <ShopManagmentCreate /> : <Navigate to="/accesdenied" />} path={"/shopmanagmentcreate"} />
+                            <Route element={isAdmin ? <UsersmanagmentEdit /> : <Navigate to="/accesdenied" />} path={"/usermanagmentedit/:theid"} />
+                            <Route element={isAdmin ? <ShopManagmentEdit /> : <Navigate to="/accesdenied" />} path={"/shopmanagmentedit/:theid"} />
+                            <Route element={<Member />} path="/member" />
+                            <Route element={<Coach />} path="/coach" />
+                            <Route element={<Shop />} path="/shop" />
+                            <Route element={<Guest />} path="/guest" />
+                            <Route element={<Product />} path="/product/:uid" />
+                            <Route element={isLoged ? <Cart /> : <Navigate to="/login" />} path="/cart" />
+                            <Route element={<h1>Not found!</h1>} />
+                        </Routes>
+                    </div>
                     <Footer />
                 </ScrollToTop>
             </BrowserRouter>
