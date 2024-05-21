@@ -59,7 +59,7 @@ export const Navbar = () => {
 			<div className="navbar-container">
 				<div className="logo">
 					<a href="/adminview" className="d-flex align-items-center" onClick={handleClick}>
-						<img src="logo" alt="Logo" className="me-2" />
+						<img src={`./images/icono.png`} alt="Logo" className="me-2" />
 					</a>
 				</div>
 				<button className="navbar-toggle" onClick={handleToggleMenu}>
@@ -80,13 +80,15 @@ export const Navbar = () => {
 						</Link>
 					)}
 					<div className="dropdown">
+					<Link to="/cart" className="nav-link">
 						<button
-							className="btn btn-secondary dropdown-toggle"
+							className="btn btn-secondary"
 							type="button"
 							id="Button1"
-							onClick={handleToggleDropdown}>
-							<i className="fa-solid fa-cart-shopping"></i> <span className="counter">{store.counter}</span>
+							>
+							<i className="fa-solid fa-cart-shopping"></i>
 						</button>
+					</Link>
 						<ul className={`dropdown-menu${isDropdownOpen ? ' show' : ''}`} aria-labelledby="dropdownMenuButton1">
 							{store.cart.map((item, index) => (
 								<li className="text-dark d-flex justify-content-between" key={index}>

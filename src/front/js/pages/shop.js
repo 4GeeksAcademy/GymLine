@@ -134,10 +134,10 @@ const Shop = () => {
               ))}
             </div>
             <div className="d-flex align-items-center justify-content-between mt-4" style={{ width: "100%" }}>
-              <div className="arrows" onClick={scrollToPrevious4}>
+              <div className="arrows col-7" onClick={scrollToPrevious4} >
                 <i className="fa-solid fa-arrow-left"></i>
               </div>
-              <div className="arrows" onClick={scrollToNext4}>
+              <div className="arrows col-7" onClick={scrollToNext4}>
                 <i className="fa-solid fa-arrow-right"></i>
               </div>
             </div>

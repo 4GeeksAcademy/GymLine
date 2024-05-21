@@ -651,6 +651,42 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
 
             },
+            signup: async (dataEmail, dataPassword, dataName, dataLastname, dataNickname) => {
+                try {
+                    console.log(dataName, dataLastname, dataNickname, dataEmail, dataPassword)
+                    const response = await fetch(process.env.BACKEND_URL+"/api/signup", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            "email": dataEmail,
+                            "password": dataPassword,
+                            "nickname": dataNickname,
+                            "name": dataName,
+                            "lastname": dataLastname,
+                            "rol": "member"
+                        })
+                    });
+                    console.log(response);
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
+                        return true;
+                    } else {
+                        const errorData = await response.json();
+                        if (errorData.message) {
+                            console.error(`Signup error: ${errorData.message}`);
+                        } else {
+                            console.error("An error occurred during user creation");
+                        }
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("An error occurred during user creation", error);
+                    return false;
+                }
+            },
             verifyAuthToken: async () => {
                 const token = sessionStorage.getItem("token");
                 //console.log(token);
