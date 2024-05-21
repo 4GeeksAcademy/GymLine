@@ -9,7 +9,7 @@ const ShopManagmentCreate = () => {
         price: 0,
         image_product: "",
         description: "",
-        type: "",
+        type: "equipamiento",
         stock: 0
     });
     const navigate = useNavigate();
@@ -39,16 +39,42 @@ const ShopManagmentCreate = () => {
     }
 
     return (
-        <div className="text-center">
-            <div className="container border">
-                <p>Producto: <input type="text" name="product" value={newProduct.product} onChange={handleChange} /></p>
-                <p>Precio: <input type="number" name="price" value={newProduct.price} onChange={handleChange} /></p>
-                <p>Imagen: <input type="text" name="image_product" value={newProduct.image_product} onChange={handleChange} /></p>
-                <p>Descripción: <input type="text" name="description" value={newProduct.description} onChange={handleChange} /></p>
-                <p>Tipo: <input type="text" name="type" value={newProduct.type} onChange={handleChange} /></p>
-                <p>Stock: <input type="number" name="stock" value={newProduct.stock} onChange={handleChange} /></p>
-                <button onClick={handleCreate}>Crear</button>
-                <button onClick={handleCancel}>Cancelar</button>
+        <div className="shopmanagement-edit-container">
+            <div className="product-form">
+                <h2>Crear Producto</h2>
+                <div className="form-group">
+                    <label>Producto:</label>
+                    <input type="text" name="product" value={newProduct.product} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                    <label>Precio:</label>
+                    <input type="number" name="price" value={newProduct.price} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                    <label>Imagen:</label>
+                    <input type="text" name="image_product" value={newProduct.image_product} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                    <label>Descripción:</label>
+                    <textarea name="description" value={newProduct.description} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                    <label>Tipo:</label>
+                    <select name="type" value={newProduct.type} onChange={handleChange}>
+                        <option value="equipamiento">Equipamiento</option>
+                        <option value="calistenia">Calistenia</option>
+                        <option value="accesorios">Accesorios</option>
+                        <option value="suplementacion">Suplementación</option>
+                    </select>
+                </div>
+                <div className="form-group">
+                    <label>Stock:</label>
+                    <input type="number" name="stock" value={newProduct.stock} onChange={handleChange} />
+                </div>
+                <div className="form-actions">
+                    <button className="btn save-btn" onClick={handleCreate}>Crear</button>
+                    <button className="btn cancel-btn" onClick={handleCancel}>Cancelar</button>
+                </div>
             </div>
         </div>
     );
