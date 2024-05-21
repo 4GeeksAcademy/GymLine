@@ -55,16 +55,42 @@ const ShopManagementEdit = () => {
     }
 
     return (
-        <div className="text-center">
-            <div className="container border">
-                <p>Producto: <input type="text" name="product" value={editedProduct.product} onChange={handleChange} /></p>
-                <p>Precio: <input type="number" name="price" value={editedProduct.price} onChange={handleChange} /></p>
-                <p>Imagen: <input type="text" name="image_product" value={editedProduct.image_product} onChange={handleChange} /></p>
-                <p>Descripción: <input type="text" name="description" value={editedProduct.description} onChange={handleChange} /></p>
-                <p>Tipo: <input type="text" name="type" value={editedProduct.type} onChange={handleChange} /></p>
-                <p>Stock: <input type="number" name="stock" value={editedProduct.stock} onChange={handleChange} /></p>
-                <button onClick={handleSave}>Guardar</button>
-                <button onClick={handleCancel}>Cancelar</button>
+        <div className="shopmanagement-edit-container">
+            <div className="product-form">
+                <h2>Editar Producto</h2>
+                <div className="form-group">
+                    <label>Producto:</label>
+                    <input type="text" name="product" value={editedProduct.product} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                    <label>Precio:</label>
+                    <input type="number" name="price" value={editedProduct.price} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                    <label>Imagen:</label>
+                    <input type="text" name="image_product" value={editedProduct.image_product} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                    <label>Descripción:</label>
+                    <textarea name="description" value={editedProduct.description} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                    <label>Tipo:</label>
+                    <select name="type" value={editedProduct.type} onChange={handleChange}>
+                        <option value="equipamiento">Equipamiento</option>
+                        <option value="calistenia">Calistenia</option>
+                        <option value="accesorios">Accesorios</option>
+                        <option value="suplementacion">Suplementación</option>
+                    </select>
+                </div>
+                <div className="form-group">
+                    <label>Stock:</label>
+                    <input type="number" name="stock" value={editedProduct.stock} onChange={handleChange} />
+                </div>
+                <div className="form-actions">
+                    <button className="btn save-btn" onClick={handleSave}>Guardar</button>
+                    <button className="btn cancel-btn" onClick={handleCancel}>Cancelar</button>
+                </div>
             </div>
         </div>
     );
