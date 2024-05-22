@@ -47,7 +47,7 @@ export const Home = () => {
 					<br />
 					<h3 style={{/* fontFamily: "Sora, sans-serif", */ fontSize: "2em", fontStyle: "italic" }}>Tu equipamiento ideal para entrenamientos sin límites</h3>
 				</div>
-				<div className=" col-12 d-flex align-items-center justify-content-center" style={{ marginTop: "9em" }}>
+				<div className=" col-12 d-flex align-items-center justify-content-center treh-foto-home" style={{ marginTop: "9em" }}>
 					<div className="me-4 col-4">
 						<img src={`./images/foto-home1.png`} style={{ width: "25em", height: "20em" }} alt="ordenador" />
 					</div>
