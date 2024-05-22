@@ -1,37 +1,38 @@
 .arrows {
-    width: 2.5em;
-    height: 2.5em;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  
-  .arrows:hover {
-    background-color: rgba(0, 0, 0, 0.7);
-  }
-  
-  .arrows:active {
-    background-color: rgba(0, 0, 0, 0.9);
-  }
-  
-  .arrows.left {
-    left: 0;
-  }
-  
-  .arrows.right {
-    right: 0;
-  }
+  width: 2.5em;
+  height: 2.5em;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
 
-  .button{
-    display: flex;
+.arrows:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.arrows:active {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.arrows.left {
+  left: 0;
+}
+
+.arrows.right {
+  right: 0;
+}
+
+.button {
+  display: flex;
   justify-content: center;
   align-items: center;
 }
- .form-container {
+
+.form-container {
   width: 420px;
   border: 1px solid #414141;
   padding: 32px 24px;
@@ -122,5 +123,69 @@
   border-color: #000000;
 }
 
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
+  .navbar-toggle {
+    display: block;
+  }
 
+  .navbar-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .navbar-menu.active {
+    display: flex;
+  }
+
+  .nav-link {
+    width: 100%;
+    text-align: left;
+  }
+
+  .btn-secondary {
+    width: 100%;
+  }
+
+  .section {
+    max-width: 90%;
+  }
+
+  .product-card {
+    width: 100%;
+  }
+
+  .treh-fotos-home {
+    display: block;
+    max-width: 70%;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-menu {
+    gap: 5px;
+  }
+
+  .btn-secondary {
+    padding: 8px 16px;
+  }
+
+  .dropdown-menu {
+    min-width: 150px;
+  }
+
+  .section {
+    max-width: 100%;
+  }
+
+  .treh-fotos-home {
+    display: block;
+    max-width: 70%;
+  }
+}
