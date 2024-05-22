@@ -36,7 +36,7 @@ const Layout = () => {
     const isLoged = store.logged;
 
     return (
-        <div className="d-flex flex-column min-vh-100">
+        <div className="d-flex flex-column min-vh-100 fondo">
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
                     <Navbar />
