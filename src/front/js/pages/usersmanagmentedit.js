@@ -65,7 +65,9 @@ const Usersmanagmentedit = () => {
                 <p>Apellido: <input type="text" name="lastname" value={editedUser.lastname} onChange={handleChange} /></p>
                 <p>Rol: 
                     <select name="rol" value={editedUser.rol} onChange={handleChange}>
+ develop
                         <option value="member">Miembro</option>
+
                         <option value="admin">Administrador</option>
                     </select>
                 </p>

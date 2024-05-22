@@ -5,18 +5,20 @@ import "../../styles/login.css";
 import "../../styles/index.css";
 
 export const Navbar = () => {
-	const { store, actions } = useContext(Context);
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const navigate = useNavigate();
-	const [errorMessage, setErrorMessage] = useState("");
+    const { store, actions } = useContext(Context);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState("");
+
 
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-	const handleToggleDropdown = () => {
-		setIsDropdownOpen(!isDropdownOpen);
-	};
+
+    const handleToggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
 
 	const handleToggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
@@ -29,9 +31,6 @@ export const Navbar = () => {
 			setIsDropdownOpen(false);
 		}
 	}, [store.cart]);
-
-	
-	
 
 	const handleLogin = async (e) => {
 		e.preventDefault();

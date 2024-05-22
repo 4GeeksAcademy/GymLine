@@ -34,7 +34,11 @@ const Shopmanagment = () => {
                             {store.products.length > 0 ? (
                                 store.products.map((product, index) => (
                                     <div className="product-card" key={index}>
+
                                         
+
+                                       
+
                                         <div className="product-details">
                                             <h2 className="product-title">{product.product}</h2>
                                             <p className="product-description">{product.description}</p>
