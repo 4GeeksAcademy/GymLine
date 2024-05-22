@@ -29,9 +29,17 @@ const getState = ({ getStore, getActions, setStore }) => {
                     if (response.ok) {
                         const data = await response.json();
                         console.log("The data", data);
-                        setStore({
-                            carshop: data.results
+
+                        let total = 0;
+                        data.results.forEach(item => {
+                            total += item.product.price;
                         });
+                        total = parseFloat(total.toFixed(2));
+                        setStore({
+                            carshop: data.results,
+                            total: total
+                        });
+                        return true;
                         return true;
                     } else {
                         const errorData = await response.json();
@@ -50,7 +58,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             addProductCar: async (user_id, product_id) => {
                 try {
-                    
+
                     const response = await fetch(process.env.BACKEND_URL + "/api/shop_car", {
                         method: 'POST',
                         headers: {
@@ -110,8 +118,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return false;
                 }
             },
-            
-            
+
+
             getProducts: async () => {
                 try {
                     const response = await fetch(process.env.BACKEND_URL + "/api/products", {
@@ -345,7 +353,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
-            createClub: async (dataCity, dataGym, dataAddress, dataPhone, dataEmail,dataUrl) => {
+            createClub: async (dataCity, dataGym, dataAddress, dataPhone, dataEmail, dataUrl) => {
                 try {
                     const response = await fetch(process.env.BACKEND_URL + "/api/gym", {
                         method: 'POST',
@@ -496,7 +504,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                             'Content-Type': 'application/json',
                             'Authorization': `Bearer ${token}`,
                             "Access-Control-Allow-Origin": "*",
-                            "Access-Control-Allow-Methods": "*"  
+                            "Access-Control-Allow-Methods": "*"
                         },
                     });
                     console.log(response);
@@ -604,10 +612,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                             "password": dataPassword,
                         })
                     });
-                    console.log("Este es el respone: "+response);
+                    console.log("Este es el respone: " + response);
                     if (response.ok) {
                         const data = await response.json();
-                        
+
                         sessionStorage.setItem("token", data.token);
                         sessionStorage.setItem("userID", data.user.id);
                         // Decodificar el token JWT para obtener el rol del usuario
@@ -631,17 +639,53 @@ const getState = ({ getStore, getActions, setStore }) => {
                         const defaultRoute = '/guest'; // Ruta predeterminada si el rol no coincide
                         //window.location = redirectMap[userRole] || defaultRoute;
                         return true;
-                        
+
                     } else {
                         console.error("An error occurred during user login");
                         return false;
                     }
-                    
+
                 } catch (error) {
                     console.error("An error occurred during user login", error);
                     return false;
                 }
-                
+
+            },
+            signup: async (dataEmail, dataPassword, dataName, dataLastname, dataNickname) => {
+                try {
+                    console.log(dataName, dataLastname, dataNickname, dataEmail, dataPassword)
+                    const response = await fetch(process.env.BACKEND_URL+"/api/signup", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            "email": dataEmail,
+                            "password": dataPassword,
+                            "nickname": dataNickname,
+                            "name": dataName,
+                            "lastname": dataLastname,
+                            "rol": "member"
+                        })
+                    });
+                    console.log(response);
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
+                        return true;
+                    } else {
+                        const errorData = await response.json();
+                        if (errorData.message) {
+                            console.error(`Signup error: ${errorData.message}`);
+                        } else {
+                            console.error("An error occurred during user creation");
+                        }
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("An error occurred during user creation", error);
+                    return false;
+                }
             },
             verifyAuthToken: async () => {
                 const token = sessionStorage.getItem("token");
@@ -669,20 +713,20 @@ const getState = ({ getStore, getActions, setStore }) => {
                             token: token,
                             logged: true
                         });
-                       
+
                     } else {
                         sessionStorage.removeItem("token");
                         setStore({ logged: false });
                         //window.location = '/login';
                     }
-                    
-                  
-                    
+
+
+
                 } catch (error) {
                     console.error("Token validation failed", error);
                     sessionStorage.removeItem("token");
                     setStore({ logged: false });
-                   // window.location = '/login';
+                    // window.location = '/login';
                 }
             },
             logout: () => {
@@ -695,24 +739,24 @@ const getState = ({ getStore, getActions, setStore }) => {
                 sessionStorage.removeItem("userID");
             },
             addCart: (name, price) => {
-				setStore({
-					cart: [...getStore().cart, name],
-					counter: getStore().counter + 1,
+                setStore({
+                    cart: [...getStore().cart, name],
+                    counter: getStore().counter + 1,
                     total: getStore().total + price
-				});
-			},
-			deleteCart: (name, price) => {
-				const currentcart = getStore().cart;
-				const updatedcart = currentcart.filter((cart) => cart !== name);
+                });
+            },
+            deleteCart: (name, price) => {
+                const currentcart = getStore().cart;
+                const updatedcart = currentcart.filter((cart) => cart !== name);
 
-				setStore({
-					cart: updatedcart,
-					counter: updatedcart.length,
+                setStore({
+                    cart: updatedcart,
+                    counter: updatedcart.length,
                     total: getStore().total - price,
-				});
-			},
-            
-             
+                });
+            },
+
+
         }
     };
 };

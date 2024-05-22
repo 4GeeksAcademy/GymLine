@@ -1,14 +1,17 @@
 /* General Styles */
-body {
+.fondo {
     overflow-x: hidden;
     background-repeat: repeat;
     background-size: auto;
+    background-image: url("../../../dist/images/fondo_pattern.jpg");
+    
 }
 
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+   
 }
 
 .d-flex {
@@ -21,6 +24,7 @@ html, body {
 
 .flex-grow-1 {
     flex-grow: 1;
+   
 }
 
 .min-vh-100 {
@@ -45,6 +49,17 @@ html, body {
     width: 100%;
     text-align: left;
 }
+
+.sign-form {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
+    text-align: left;
+}
+
 
 .login-form h2 {
     margin-bottom: 20px;
@@ -174,6 +189,17 @@ html, body {
 }
 
 /* Admin View Container */
+
+   
+   /*  overflow-x: hidden;
+    background-image: url('../../../dist/images/fondo_pattern.jpg');
+    background-repeat: repeat;
+    background-size: auto;  */
+
+
+.backg-header {
+    background-color: #740C0C;
+}
 
 .adminview-container {
     display: flex;

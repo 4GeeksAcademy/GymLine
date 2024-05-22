@@ -1,45 +1,117 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 export const Cart = () => {
   const { store, actions } = useContext(Context);
 
+  useEffect(() => {
+    actions.getProductCar(store.user.id)
+  }, []);
+
+  useEffect(() => {
+    actions.getProductCar(store.user.id)
+  }, [store.carshop]);
+
+
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    actions.deleteCar(store.user.id)
+    navigate('/shop');
+  };
+
+
+  const paypalOptions = {
+    "client-id": process.env.CLIENT_ID
+  };
+
+  const handleApprove = (data, actions) => {
+    return actions.order.capture().then(function (details) {
+      // showTransactionAlert(details.payer.name.given_name);
+      navigate('/CarEmpty');
+    });
+  };
+  const showTransactionAlert = (payerName) => {
+    const message = 'Transacción completada por ' + payerName;
+    alert(message);
+  };
+
+
   return (
-    <div className="container">
-      <div className="row">
-        {store.cart.length === 0 ? (
+    <div className="container row" style={{margin: "0 auto"}}>
+
+      <div className="col-12 mt-4">
+        {!store.carshop ? (
           <>
-            <div className="col-12">
-              <h3>La cesta está vacía</h3>
+            <div className="login-container">
+              <div className="login-form">
+
+                <div className="">
+                  <h3>La cesta está vacía</h3>
+                </div>
+                <div className="text-center">
+                  <Link to="/shop" className="btn btn-primary">
+                    Ir a comprar
+                  </Link>
+                </div>
+              </div>
             </div>
-            <div className="col-12 text-center">
-              <Link to="/shop" className="btn btn-primary">
-                Ir a comprar
-              </Link>
-            </div>
+
           </>
         ) : (
           <>
-            {store.cart.map((item, index) => (
-              <div className="col-12 border border-secondary" key={index}>
-                <li className="text-dark d-flex justify-content-between">
-                  {item}
-                  <span className="bean">
-                    <i
-                      className="fas fa-trash"
-                      onClick={() => actions.deleteCart(item)}
-                    ></i>
-                  </span>
-                </li>
+          <div className="row d-flex justify-content-center align-items-center" >
+            {store.carshop.map((item, index) => (
+              <div className="border border-secondary d-flex justify-content-center align-items-center p-4 mb-2 col-7" style={{ height: "17em", width: "20em", marginRight: "24px" }} key={index}>
+                <div className="d-flex flex-column justify-content-center align-items-center" style={{ marginRight: "10px" }}>
+                  <h5 className="text-center">{item.product.product}</h5>
+                  <h4 className="text-center">{item.product.price}</h4>
+                </div>
+                <div className="d-flex justify-content-center align-items-center">
+                  <img src={`images/${item.product.image_product}`} style={{ height: "12em", width: "12em", objectFit: "cover" }} alt={item.product.product} />
+                </div>
               </div>
             ))}
+            <button
+              onClick={handleNavigate}
+              className="btn btn-secondary">
+
+              BORRAR CARRITO
+            </button>
+          </div>
+
+            
             <hr />
+            <div>
             <h5>PRECIO TOTAL: {store.total}</h5>
+           
+              <PayPalScriptProvider options={paypalOptions}>
+                <PayPalButtons
+                  style={{ layout: "horizontal" }}
+                  createOrder={(_, actions) => {
+                    return actions.order.create({
+                      purchase_units: [
+                        {
+                          amount: {
+                            value: store.total
+                          }
+                        }
+                      ]
+                    });
+                  }}
+                  onApprove={handleApprove}
+                />
+              </PayPalScriptProvider>
+            </div>
           </>
+
         )}
+
       </div>
+
     </div>
+
   );
 };

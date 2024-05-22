@@ -16,7 +16,7 @@ import Guest from "./pages/guest";
 import Adminview from "./pages/adminview";
 import Usersmanagment from "./pages/usersmanagment";
 import UsersmanagmentEdit from "./pages/usersmanagmentedit";
-import Shop from "./pages/shop"; 
+import Shop from "./pages/shop";
 import { Product } from "./pages/product";
 import { Cart } from "./pages/cart";
 import Shopmanagment from "./pages/shopmanagment";
@@ -36,7 +36,7 @@ const Layout = () => {
     const isLoged = store.logged;
 
     return (
-        <div className="d-flex flex-column min-vh-100">
+        <div className="d-flex flex-column min-vh-100 fondo">
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
                     <Navbar />
@@ -63,6 +63,7 @@ const Layout = () => {
                             <Route element={<h1>Not found!</h1>} />
                         </Routes>
                     </div>
+
                     <Footer />
                 </ScrollToTop>
             </BrowserRouter>
