@@ -4,10 +4,12 @@ import "../../styles/home.css";
 import { Link, useNavigate } from "react-router-dom";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
-export const Cartempty = () => {
+const Cartempty = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
-    
+    useEffect(() => {
+        actions.deleteCar(store.user.id)
+    }, []);
 
 
     return (
@@ -34,3 +36,5 @@ export const Cartempty = () => {
 
     );
 };
+
+export default Cartempty;

@@ -50,7 +50,7 @@ const Layout = () => {
                             <Route element={<Admin />} path="/admin" />
                             <Route element={<UserDetails />} path="/profile" />
                             <Route element={<AccessDenied />} path="/accesdenied" />
-                            <Route element={isAdmin ? <Adminview /> :  <Navigate to="/accesdenied" />} path={"/adminview"} />
+                            <Route element={isAdmin ? <Adminview /> : <Navigate to="/accesdenied" />} path={"/adminview"} />
                             <Route element={isAdmin ? <Usersmanagment /> : <Navigate to="/accesdenied" />} path={"/usersmanagment"} />
                             <Route element={isAdmin ? <Shopmanagment /> : <Navigate to="/accesdenied" />} path={"/shopmanagment"} />
                             <Route element={isAdmin ? <ShopManagmentCreate /> : <Navigate to="/accesdenied" />} path={"/shopmanagmentcreate"} />
@@ -62,7 +62,7 @@ const Layout = () => {
                             <Route element={<Guest />} path="/guest" />
                             <Route element={<Product />} path="/product/:uid" />
                             <Route element={isLoged ? <Cart /> : <Navigate to="/login" />} path="/cart" />
-                            <Route element={<Cartempty />} path="/Cartempty" />
+                            <Route element={<Cartempty />} path="/CarEmpty" />
                             <Route element={<h1>Not found!</h1>} />
                         </Routes>
                     </div>

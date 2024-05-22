@@ -11,15 +11,17 @@ export const Cart = () => {
     actions.getProductCar(store.user.id)
   }, []);
 
-  useEffect(() => {
-    actions.getProductCar(store.user.id)
-  }, [store.carshop]);
+  
 
 
   const navigate = useNavigate();
-  const handleNavigate = () => {
-    actions.deleteCar(store.user.id)
+  const handleNavigate  = async () => {
+    const success= await actions.deleteCar(store.user.id)
+    if (success ) {
+      console.log("Revision");
+    actions.getProductCar(store.user.id)
     navigate('/shop');
+    }
   };
 
 
@@ -40,7 +42,7 @@ export const Cart = () => {
 
 
   return (
-    <div className="container row" style={{margin: "0 auto"}}>
+    <div className="container row" style={{ margin: "0 auto" }}>
 
       <div className="col-12 mt-4">
         {!store.carshop ? (
@@ -62,31 +64,31 @@ export const Cart = () => {
           </>
         ) : (
           <>
-          <div className="row d-flex justify-content-center align-items-center" >
-            {store.carshop.map((item, index) => (
-              <div className="border border-secondary d-flex justify-content-center align-items-center p-4 mb-2 col-7" style={{ height: "17em", width: "20em", marginRight: "24px" }} key={index}>
-                <div className="d-flex flex-column justify-content-center align-items-center" style={{ marginRight: "10px" }}>
-                  <h5 className="text-center">{item.product.product}</h5>
-                  <h4 className="text-center">{item.product.price}</h4>
+            <div className="row d-flex justify-content-center align-items-center" >
+              {store.carshop.map((item, index) => (
+                <div className="border border-secondary d-flex justify-content-center align-items-center p-4 mb-2 col-7" style={{ height: "17em", width: "20em", marginRight: "24px" }} key={index}>
+                  <div className="d-flex flex-column justify-content-center align-items-center" style={{ marginRight: "10px" }}>
+                    <h5 className="text-center">{item.product.product}</h5>
+                    <h4 className="text-center">{item.product.price}</h4>
+                  </div>
+                  <div className="d-flex justify-content-center align-items-center">
+                    <img src={`images/${item.product.image_product}`} style={{ height: "12em", width: "12em", objectFit: "cover" }} alt={item.product.product} />
+                  </div>
                 </div>
-                <div className="d-flex justify-content-center align-items-center">
-                  <img src={`images/${item.product.image_product}`} style={{ height: "12em", width: "12em", objectFit: "cover" }} alt={item.product.product} />
-                </div>
-              </div>
-            ))}
-            <button
-              onClick={handleNavigate}
-              className="btn btn-secondary">
+              ))}
+              <button
+                onClick={handleNavigate}
+                className="btn btn-secondary">
 
-              BORRAR CARRITO
-            </button>
-          </div>
+                BORRAR CARRITO
+              </button>
+            </div>
 
-            
+
             <hr />
             <div>
-            <h5>PRECIO TOTAL: {store.total}</h5>
-           
+              <h5>PRECIO TOTAL: {store.total}</h5>
+
               <PayPalScriptProvider options={paypalOptions}>
                 <PayPalButtons
                   style={{ layout: "horizontal" }}

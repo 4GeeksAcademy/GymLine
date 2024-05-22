@@ -197,6 +197,8 @@ def update_member(member_id):
         member.name = data['name']
     if 'lastname' in data:
         member.lastname = data['lastname']
+    if 'rol' in data:
+        member.rol = data['rol']
    
     db.session.commit()
 

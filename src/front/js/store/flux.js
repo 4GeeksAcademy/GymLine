@@ -48,7 +48,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                         } else {
                             console.error("An error occurred during Get Product in car");
                         }
-                        return false;
+                        return true;
                     }
                 } catch (error) {
                     console.error("An error occurred getting product in car", error);
@@ -103,6 +103,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                     if (response.ok) {
                         const data = await response.json();
                         console.log(data);
+                        setStore({ carshop: null });
+
                         return true;
                     } else {
                         const errorData = await response.json();
@@ -530,7 +532,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
-            modifyUser: async (id, email = null, password = null, nickname = null, name = null, lastname = null) => {
+            modifyUser: async (id, email = null, password = null, nickname = null, name = null, lastname = null, rol = null) => {
                 try {
 
                     const requestBody = {};
@@ -540,6 +542,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     if (nickname !== null) requestBody.nickname = nickname;
                     if (name !== null) requestBody.name = name;
                     if (lastname !== null) requestBody.lastname = lastname;
+                    if (rol !== null) requestBody.rol = rol;
 
                     const response = await fetch(process.env.BACKEND_URL + `/api/member/${id}`, {
                         method: 'PUT',
@@ -654,7 +657,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             signup: async (dataEmail, dataPassword, dataName, dataLastname, dataNickname) => {
                 try {
                     console.log(dataName, dataLastname, dataNickname, dataEmail, dataPassword)
-                    const response = await fetch(process.env.BACKEND_URL+"/api/signup", {
+                    const response = await fetch(process.env.BACKEND_URL + "/api/signup", {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
