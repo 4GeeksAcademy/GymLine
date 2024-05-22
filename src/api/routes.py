@@ -51,6 +51,19 @@ def handle_register():
             "coach": coach.serialize()
         }
         return jsonify(answer), 200
+
+# Endpoint GET User by ID
+@api.route ('/user/<int:user_id>', methods = ['GET'])
+def handle_user_id(user_id): 
+    response_body = {}
+    user = User.query.get(user_id)
+    if not user:
+         raise APIException('User does not exist', status_code=400)
+    response_body ['results'] = [user.serialize()]
+    response_body['message'] = 'Method GET by ID an user'
+    return jsonify (response_body) , 200
+
+
 @api.route('/login', methods=['POST'])
 def login():
     rqt_body = request.get_json(force=True)
@@ -184,6 +197,8 @@ def update_member(member_id):
         member.name = data['name']
     if 'lastname' in data:
         member.lastname = data['lastname']
+    if 'rol' in data:
+        member.rol = data['rol']
    
     db.session.commit()
 

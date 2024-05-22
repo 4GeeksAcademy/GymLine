@@ -24,7 +24,7 @@ const Shopmanagment = () => {
             actions.getProducts();
         } 
     };
-
+/*<img src={product.image_product} alt={product.product} className="product-image" />*/
     return (
         <div className="shopmanagment-container">
             {store.user && store.user.rol === "admin" ? (
@@ -34,7 +34,11 @@ const Shopmanagment = () => {
                             {store.products.length > 0 ? (
                                 store.products.map((product, index) => (
                                     <div className="product-card" key={index}>
-                                        <img src={product.image_product} alt={product.product} className="product-image" />
+
+                                        
+
+                                       
+
                                         <div className="product-details">
                                             <h2 className="product-title">{product.product}</h2>
                                             <p className="product-description">{product.description}</p>

@@ -77,10 +77,12 @@ const ShopManagementEdit = () => {
                 <div className="form-group">
                     <label>Tipo:</label>
                     <select name="type" value={editedProduct.type} onChange={handleChange}>
-                        <option value="equipamiento">Equipamiento</option>
-                        <option value="calistenia">Calistenia</option>
-                        <option value="accesorios">Accesorios</option>
-                        <option value="suplementacion">Suplementación</option>
+
+                        <option value="Equipamiento">Equipamiento</option>
+                        <option value="Calistenia">Calistenia</option>
+                        <option value="Accesorios">Accesorios</option>
+                        <option value="Suplementos Alimentarios">Suplementación</option>
+
                     </select>
                 </div>
                 <div className="form-group">
