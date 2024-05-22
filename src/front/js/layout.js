@@ -25,6 +25,8 @@ import ShopManagmentCreate from "./pages/shopmanagmentcreate";
 import AccessDenied from "./pages/accesdenied";
 import UserDetails from "./pages/userdetails";
 
+import Cartempty from "./pages/cartempty"
+
 const Layout = () => {
     const basename = process.env.BASENAME || "";
 
@@ -60,6 +62,7 @@ const Layout = () => {
                             <Route element={<Guest />} path="/guest" />
                             <Route element={<Product />} path="/product/:uid" />
                             <Route element={isLoged ? <Cart /> : <Navigate to="/login" />} path="/cart" />
+                            <Route element={<Cartempty />} path="/Cartempty" />
                             <Route element={<h1>Not found!</h1>} />
                         </Routes>
                     </div>
